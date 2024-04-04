@@ -63,9 +63,11 @@ if (mcVersion >= 11800) {
 }
 
 JavaVersion JAVA_COMPATIBILITY
-if (mcVersion >= 11800) {
+if (mcVersion >= 1_20_05) {
+    JAVA_COMPATIBILITY = JavaVersion.VERSION_21
+} else if (mcVersion >= 1_18_00) {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_17
-} else if (mcVersion >= 11700) {
+} else if (mcVersion >= 1_17_00) {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_16
 } else {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_1_8
@@ -93,9 +95,11 @@ processResources {
                         "minecraft_dependency": project.minecraft_dependency]
         expand valueMap
     }
+    // replaces `{{COMPATIBILITY_LEVEL}}`
     filesMatching('chattools.mixins.json') {
         filter { s -> s.replace('{{COMPATIBILITY_LEVEL}}', "JAVA_${JAVA_COMPATIBILITY.ordinal() + 1}") }
     }
+    // replaces `{{FABRIC_API}}` and `{{CLOTH_CONFIG}}`
     filesMatching('fabric.mod.json') {
         filter { s -> s.replace('{{FABRIC_API}}', "${FABRIC_API_MOD_ID}") }
         filter { s -> s.replace('{{CLOTH_CONFIG}}', "${CLOTH_CONFIG_MOD_ID}") }
@@ -128,21 +132,3 @@ jar {
     }
 }
 
-// configure the maven publication
-/*
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId archivesBaseName
-
-            from components.java
-        }
-    }
-
-    // select the repositories you want to publish to
-    repositories {
-        // uncomment to publish to the local maven
-        // mavenLocal()
-    }
-}
-*/
