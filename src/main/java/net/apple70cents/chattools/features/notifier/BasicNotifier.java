@@ -6,7 +6,6 @@ import net.apple70cents.chattools.utils.MessageUtils;
 import net.apple70cents.chattools.utils.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -14,6 +13,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.regex.Pattern;
+//#if MC<12005
+//$$ import net.minecraft.sound.SoundCategory;
+//#endif
 
 public class BasicNotifier {
     public static boolean shouldWork(Text text) {
@@ -59,13 +61,17 @@ public class BasicNotifier {
             String identifier = (String) ChatTools.CONFIG.get("notifier.Sound.Type");
             int volume = ((Number) ChatTools.CONFIG.get("notifier.Sound.Volume")).intValue();
             int pitch = ((Number) ChatTools.CONFIG.get("notifier.Sound.Pitch")).intValue();
-            player.playSound(
-                    //#if MC>=11900
-                    SoundEvent.of(new Identifier(identifier))
-                    //#else
-                    //$$ new SoundEvent(new Identifier(identifier))
-                    //#endif
-                    , SoundCategory.PLAYERS, volume * 0.01F, pitch * 0.1F);
+            //#if MC>=12005
+            player.playSound(SoundEvent.of(new Identifier(identifier)), volume * 0.01F, pitch * 0.1F);
+            //#else
+            //$$ player.playSound(
+            //$$    //#if MC>=11900
+            //$$    SoundEvent.of(new Identifier(identifier))
+            //$$    //#else
+            //$$    //$$ new SoundEvent(new Identifier(identifier))
+            //$$    //#endif
+            //$$    , SoundCategory.PLAYERS, volume * 0.01F, pitch * 0.1F);
+            //#endif
         }
 
         // Actionbar notifications

@@ -10,13 +10,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+//#if MC>=12005
+import net.minecraft.registry.BuiltinRegistries;
+//#endif
 /**
  * @author 70CentsApple
  */
 public class TextUtils {
     public static final Style WEBSITE_URL_STYLE = Style.EMPTY.withUnderline(true)
                                                              .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://70centsapple.top/blogs/#/chat-tools-faq"))
-                                                             .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ConfigScreenUtils.getTooltip("faq","FAQ",null)));
+                                                             .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ConfigScreenUtils.getTooltip("faq", "FAQ", null)));
     public static final String PREFIX = "key.chattools.";
 
     public static class MessageUnit {
@@ -39,10 +42,10 @@ public class TextUtils {
         return index;
     }
 
-    public static MessageUnit getMessageMap(int idx){
+    public static MessageUnit getMessageMap(int idx) {
         try {
             return messageMap.get(idx);
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -83,6 +86,7 @@ public class TextUtils {
     public static Text of(String str) {
         return Text.of(str);
     }
+
     public static Text empty() {
         //#if MC>=11900
         return Text.empty();
@@ -118,9 +122,17 @@ public class TextUtils {
      * @return text after replacement
      */
     public static MutableText replaceText(MutableText text, String oldString, String newString) {
-        JsonElement jsonElement = Text.Serialization.toJsonTree(text);
+        //#if MC>=12005
+        JsonElement jsonElement = new Text.Serializer(BuiltinRegistries.createWrapperLookup()).serialize(text, null, null);
+        //#else
+        //$$ JsonElement jsonElement = Text.Serialization.toJsonTree(text);
+        //#endif
         replaceFieldValue(jsonElement, oldString, newString);
-        return Text.Serialization.fromJsonTree(jsonElement);
+        //#if MC>=12005
+        return new Text.Serializer(BuiltinRegistries.createWrapperLookup()).deserialize(jsonElement, null, null);
+        //#else
+        //$$ return Text.Serialization.fromJsonTree(jsonElement);
+        //#endif
     }
 
     private static void replaceFieldValue(JsonElement jsonElement, String oldValue, String newValue) {

@@ -1,6 +1,5 @@
 apply plugin: 'maven-publish'
 apply plugin: 'fabric-loom'
-apply plugin: 'io.github.juuxel.loom-quiltflower'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'me.fallenbreath.yamlang'
 
@@ -11,9 +10,7 @@ preprocess {
 }
 
 repositories {
-    maven {
-        url 'https://jitpack.io'
-    }
+    maven { url 'https://jitpack.io' }
     maven { url "https://maven.shedaniel.me/" } // Cloth Config
     maven { url "https://maven.terraformersmc.com/releases/" } // Mod Menu
 }
@@ -72,8 +69,6 @@ if (mcVersion >= 1_20_05) {
 } else {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_1_8
 }
-sourceCompatibility = JAVA_COMPATIBILITY
-targetCompatibility = JAVA_COMPATIBILITY
 
 String versionSuffix = ''
 String fullModVersion = project.mod_version + versionSuffix

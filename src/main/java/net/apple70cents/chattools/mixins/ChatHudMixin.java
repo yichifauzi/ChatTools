@@ -22,10 +22,12 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(ChatHud.class)
 public abstract class ChatHudMixin {
     @ModifyConstant(method =
-            //#if MC>=11900
-            "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"
+            //#if MC>=12005
+            "addMessage(Lnet/minecraft/client/gui/hud/ChatHudLine;)V"
+            //#elseif MC>=11900
+            //$$ "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"
             //#else
-            //$$"addMessage(Lnet/minecraft/text/Text;IIZ)V"
+            //$$ "addMessage(Lnet/minecraft/text/Text;IIZ)V"
             //#endif
             , constant = @Constant(intValue = 100), require = 0)
     public int modifyMaxHistorySize(int originalMaxSize) {
@@ -36,16 +38,23 @@ public abstract class ChatHudMixin {
         }
     }
 
-    //#if MC>=11900
-    @ModifyArgs(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"))
+    //#if MC>=12005
+    @ModifyArgs(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHudLine;<init>(ILnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V"))
+    //#elseif MC>=11900
+    //$$ @ModifyArgs(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"))
     //#else
-    //$$@ModifyArgs(method = "addMessage(Lnet/minecraft/text/Text;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;IIZ)V"))
+    //$$ @ModifyArgs(method = "addMessage(Lnet/minecraft/text/Text;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;IIZ)V"))
     //#endif
     public void onReceivingMessages(Args args) {
+        //#if MC>=12005
+        final int MESSAGE_IDX = 1;
+        //#else
+        //$$ final int MESSAGE_IDX = 0;
+        //#endif
         if (!(boolean) ChatTools.CONFIG.get("general.ChatTools.Enabled")) {
             return;
         }
-        Text message = args.get(0);
+        Text message = args.get(MESSAGE_IDX);
         if ((boolean) ChatTools.CONFIG.get("bubble.Enabled")) {
             // it must be done before NickHider began to work
             BubbleRenderer.addChatBubble(message);
@@ -69,6 +78,6 @@ public abstract class ChatHudMixin {
         }
         // we need to reset `justSentMessage` status, since it might be that this message received was sent by us
         MessageUtils.setJustSentMessage(false);
-        args.set(0, message);
+        args.set(MESSAGE_IDX, message);
     }
 }
