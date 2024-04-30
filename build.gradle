@@ -16,13 +16,13 @@ preprocess {
     def mc118 = createNode('1.18.2', 1_18_02, 'yarn')
     def mc119 = createNode('1.19.4', 1_19_04, 'yarn')
     def mc12004 = createNode('1.20.4', 1_20_04, 'yarn')
-    def mc12005 = createNode('1.20.5', 1_20_05, 'yarn')
+    def mc12006 = createNode('1.20.6', 1_20_06, 'yarn')
 
     mc116.link(mc117, null)
     mc117.link(mc118, null)
     mc118.link(mc119, null)
     mc119.link(mc12004, null)
-    mc12004.link(mc12005, null)
+    mc12004.link(mc12006, null)
 }
 
 tasks.register('buildAndGather') {
