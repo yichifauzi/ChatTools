@@ -21,14 +21,15 @@ public class ChatTools implements ModInitializer {
     public void onInitialize() {
         LoggerUtils.init();
 
-        // Check and migrate if the config file is out of date.
-        // This should be done before the config is loaded.
-        ConfigMigrationUtils.checkAndMigrate();
-
-        // if the config file doesn't exist, create a new one with the default settings.
-        if (!ConfigStorage.configFileExists()) {
+        if (ConfigStorage.configFileExists()) {
+            // Check and migrate if the config file is out of date.
+            // This should be done before the config is loaded.
+            ConfigMigrationUtils.checkAndMigrate();
+        } else {
+            // if the config file doesn't exist, create a new one with the default settings.
             DEFAULT_CONFIG.save();
         }
+
         CONFIG = new ConfigStorage(false).withDefault(DEFAULT_CONFIG.getHashmap());
 
         // show welcome message if needed
