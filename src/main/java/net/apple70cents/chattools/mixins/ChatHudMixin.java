@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public abstract class ChatHudMixin {
     @ModifyConstant(method =
             //#if MC>=12005
-            "addMessage(Lnet/minecraft/client/gui/hud/ChatHudLine;)V"
+            "addVisibleMessage(Lnet/minecraft/client/gui/hud/ChatHudLine;)V"
             //#elseif MC>=11900
             //$$ "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V"
             //#else
