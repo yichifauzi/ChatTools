@@ -23,11 +23,11 @@ public class Timestamp {
                 .getMonth()
                 .getValue(), currentTime.getDayOfMonth(), currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond(), offsetString));
         if ((boolean) ChatTools.CONFIG.get("general.Timestamp.CopyToChatBar.Enabled")) {
-            int index = TextUtils.putMessageMap(message, currentUnixTimestamp);
+            String hashcode = TextUtils.putMessageMap(message, currentUnixTimestamp);
             return ((MutableText) shortTimeDisplay).setStyle(Style.EMPTY
                                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ((MutableText) longTimeDisplay).append("\n\n" + TextUtils
                                                                    .trans("texts.copy.launch").getString())))
-                                                           .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chattools get_message " + index)))
+                                                           .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chattools get_message " + hashcode)))
                                                    .append(message);
         } else {
             return ((MutableText) shortTimeDisplay)

@@ -1,7 +1,6 @@
 package net.apple70cents.chattools.utils;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.apple70cents.chattools.ChatTools;
@@ -13,10 +12,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
-
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -80,15 +77,15 @@ public class CommandRegistryUtils {
                 return Command.SINGLE_SUCCESS;
             }))
             // chattools get_message
-            .then(literal("get_message").then(argument("index",IntegerArgumentType.integer(0)).executes(t -> {
-                int index = IntegerArgumentType.getInteger(t,"index");
-                LoggerUtils.info("[ChatTools] Getting message index:" + index);
-                TextUtils.MessageUnit messageUnit = TextUtils.getMessageMap(index);
+            .then(literal("get_message").then(argument("hash",StringArgumentType.string()).executes(t -> {
+                String hash = StringArgumentType.getString(t,"hash");
+                LoggerUtils.info("[ChatTools] Getting message by hash: " + hash);
+                TextUtils.MessageUnit messageUnit = TextUtils.getMessageMap(hash);
                 if (messageUnit != null) {
                     LoggerUtils.info(String.format("Time:%d Text:%s", messageUnit.unixTimestamp, messageUnit.message));
                     MinecraftClient.getInstance().setScreen(new CopyFeatureScreen(messageUnit));
                 } else {
-                    Text errorText = ((MutableText) TextUtils.literal(String.format("[ChatTools] Failed to get message index: %d", index))).formatted(Formatting.RED);
+                    Text errorText = ((MutableText) TextUtils.literal("[ChatTools] Failed to get message by hash: " + hash)).formatted(Formatting.RED);
                     LoggerUtils.error(errorText.getString());
                     MessageUtils.sendToNonPublicChat(errorText);
                 }
