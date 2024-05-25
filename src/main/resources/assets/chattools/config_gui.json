@@ -9,6 +9,10 @@
                     "key": "general.FAQ"
                 },
                 {
+                    "type": "boolean",
+                    "key": "general.ChatTools.Enabled"
+                },
+                {
                     "type": "sub",
                     "key": "general.Timestamp",
                     "content": [
