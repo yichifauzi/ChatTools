@@ -58,8 +58,15 @@ public class ChatTools implements ModInitializer {
         // register commands
         CommandRegistryUtils.register();
 
-        if (!DownloadUtils.checkIfFullyReady()) {
-            DownloadUtils.startDownload();
-        }
+        Runnable runnable = () -> {
+            if (!DownloadUtils.checkIfFullyReady()) {
+                DownloadUtils.startDownload();
+                LoggerUtils.info("[ChatTools] Not yet fully ready, downloading...");
+            }
+            LoggerUtils.info("[ChatTools] Initial download thread terminated.");
+        };
+        // Start the file download in a new thread
+        Thread downloadThread = new Thread(runnable, "ChatTools-Download-Thread");
+        downloadThread.start();
     }
 }
