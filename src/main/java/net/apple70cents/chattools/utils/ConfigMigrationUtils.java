@@ -51,7 +51,11 @@ public class ConfigMigrationUtils {
     }
 
     public static void migrate(File configFile) {
-        if (CONFIG_VERSION >= 1.0 && CONFIG_VERSION < 2.0) {
+        if (CONFIG_VERSION < 0) {
+            LoggerUtils.error("[ChatTools] Error: Unknown config version: " + CONFIG_VERSION);
+            return;
+        }
+        if (CONFIG_VERSION < 2.0) {
             migrateFromV1ToV2(configFile, MinecraftClient.getInstance().getClass().getClassLoader()
                                                          .getResourceAsStream("assets/chattools/migration_v1_to_v2.json"));
         }
