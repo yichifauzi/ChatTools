@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 2.2,
     "content": [
         {
             "key": "category.general",
@@ -237,15 +237,15 @@
             ]
         },
         {
-            "key": "category.responser",
+            "key": "category.responder",
             "content": [
                 {
                     "type": "boolean",
-                    "key": "responser.Enabled"
+                    "key": "responder.Enabled"
                 },
                 {
-                    "type": "ResponserList",
-                    "key": "responser.List"
+                    "type": "ResponderList",
+                    "key": "responder.List"
                 }
             ]
         }

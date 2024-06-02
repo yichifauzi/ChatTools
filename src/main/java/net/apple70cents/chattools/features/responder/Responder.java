@@ -1,4 +1,4 @@
-package net.apple70cents.chattools.features.responser;
+package net.apple70cents.chattools.features.responder;
 
 import net.apple70cents.chattools.ChatTools;
 import net.apple70cents.chattools.config.SpecialUnits;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * @author 70CentsApple
  */
-public class Responser {
+public class Responder {
     static MinecraftClient mc = MinecraftClient.getInstance();
 
     /**
@@ -52,7 +52,7 @@ public class Responser {
         String pattern = "";
         String message = "";
         boolean forceDisableInjector = false;
-        for (SpecialUnits.ResponserRuleUnit unit : SpecialUnits.ResponserRuleUnit.fromList((List) ChatTools.CONFIG.get("responser.List"))) {
+        for (SpecialUnits.ResponderRuleUnit unit : SpecialUnits.ResponderRuleUnit.fromList((List) ChatTools.CONFIG.get("responder.List"))) {
             if (mc.getCurrentServerEntry() == null) {
                 if ("*".equals(unit.address)) {
                     if (Pattern.compile(unit.pattern).matcher(messageReceived).matches()) {

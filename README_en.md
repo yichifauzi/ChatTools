@@ -76,9 +76,9 @@ Renders a chat bubble over one's head.
 Apply different bubble rules on different servers.  
 ![Bubble Rules](<images/Bubble Rules.png>)
 
-## Responser Section
+## Responder Section
 > **Warning: If you are going to use this feature in a server, please inquire with other players and admins first!**
-- Enable Responser  
+- Enable Responder  
 Response to other's messages automatically.
-- Responser Rules  
-Apply different responser rules on different servers.
+- Responder Rules  
+Apply different responder rules on different servers.

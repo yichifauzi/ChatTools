@@ -57,41 +57,41 @@ public class SpecialUnits {
         }
     }
 
-    public static class ResponserRuleUnit {
+    public static class ResponderRuleUnit {
         public String address;
         public String pattern;
         public String message;
         public boolean forceDisableFormatter;
 
-        public ResponserRuleUnit() {
+        public ResponderRuleUnit() {
             this.address = "*";
             this.pattern = "Repeat my words:(?<word>.*)";
             this.message = "You said {word}.";
             this.forceDisableFormatter = false;
         }
 
-        public ResponserRuleUnit(String address, String pattern, String message, boolean forceDisableFormatter) {
+        public ResponderRuleUnit(String address, String pattern, String message, boolean forceDisableFormatter) {
             this.address = address;
             this.pattern = pattern;
             this.message = message;
             this.forceDisableFormatter = forceDisableFormatter;
         }
 
-        public static ResponserRuleUnit of(Object ele) {
+        public static ResponderRuleUnit of(Object ele) {
             if (ele instanceof Map) {
-                return new ResponserRuleUnit((String) ((Map) ele).get("address"), (String) ((Map) ele).get("pattern"),
+                return new ResponderRuleUnit((String) ((Map) ele).get("address"), (String) ((Map) ele).get("pattern"),
                         (String) ((Map) ele).get("message"), (boolean) ((Map) ele).get("forceDisableFormatter"));
-            } else if (ele instanceof ResponserRuleUnit) {
-                return (ResponserRuleUnit) ele;
+            } else if (ele instanceof ResponderRuleUnit) {
+                return (ResponderRuleUnit) ele;
             } else {
                 throw new IllegalArgumentException("Unexpected element type of Object: " + ele);
             }
         }
 
-        public static List<ResponserRuleUnit> fromList(List list) {
-            List<ResponserRuleUnit> arr = new ArrayList<>();
+        public static List<ResponderRuleUnit> fromList(List list) {
+            List<ResponderRuleUnit> arr = new ArrayList<>();
             for (Object ele : list) {
-                arr.add(ResponserRuleUnit.of(ele));
+                arr.add(ResponderRuleUnit.of(ele));
             }
             return arr;
         }

@@ -1,15 +1,14 @@
 package net.apple70cents.chattools.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.apple70cents.chattools.ChatTools;
 import net.apple70cents.chattools.config.ConfigStorage;
 import net.minecraft.client.MinecraftClient;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -20,7 +19,7 @@ import java.util.regex.Pattern;
  * @author 70CentsApple
  */
 public class ConfigMigrationUtils {
-    public static final double CURRENT_VERSION = 2.1;
+    public static final double CURRENT_VERSION = ((Number) ChatTools.DEFAULT_CONFIG.get("config.version")).doubleValue();
     public static double CONFIG_VERSION = -1.0;
 
     public static void checkAndMigrate() {
@@ -31,7 +30,7 @@ public class ConfigMigrationUtils {
         }
     }
 
-    public static boolean isConfigOutOfDate(File configFile) {
+    public static void readConfigFileVersion(File configFile) {
         try {
             String content = new String(Files.readAllBytes(Paths.get(configFile.toURI())));
             JsonObject json = new Gson().fromJson(content, JsonObject.class);
@@ -41,17 +40,26 @@ public class ConfigMigrationUtils {
                 // if there is no `config.version` key, then we assume it is v1.0.
                 CONFIG_VERSION = 1.0;
             }
-            return CONFIG_VERSION < CURRENT_VERSION;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+    }
+
+    public static boolean isConfigOutOfDate(File configFile) {
+        readConfigFileVersion(configFile);
+        return CONFIG_VERSION < CURRENT_VERSION;
     }
 
     public static void migrate(File configFile) {
         if (CONFIG_VERSION >= 1.0 && CONFIG_VERSION < 2.0) {
             migrateFromV1ToV2(configFile, MinecraftClient.getInstance().getClass().getClassLoader()
                                                          .getResourceAsStream("assets/chattools/migration_v1_to_v2.json"));
+        }
+        // Refresh
+        readConfigFileVersion(configFile);
+        if (CONFIG_VERSION < 2.2) {
+            // In v2.2.0, we corrected the misspelling word 'responder' from 'responser'
+            migrateFromV2ToV2_2(configFile);
         }
     }
 
@@ -77,8 +85,31 @@ public class ConfigMigrationUtils {
                 matcher.appendReplacement(result, Matcher.quoteReplacement(keepContent));
             }
             matcher.appendTail(result);
-            Files.write(file.toPath(), result.toString().getBytes());
+
+            JsonObject json = new Gson().fromJson(result.toString(), JsonObject.class);
+            json.addProperty("config.version", (Number) 2.0);
+            Files.write(file.toPath(), json.toString().getBytes());
             LoggerUtils.info("[ChatTools] Migrated it from v1 to v2!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void migrateFromV2ToV2_2(File file) {
+        // In v2.2.0, we corrected the misspelling word 'responder' from 'responser'
+        try {
+            String content = new String(Files.readAllBytes(file.toPath()));
+            content = content.replace("\"responser.Enabled\":", "\"responder.Enabled\":");
+            content = content.replace("\"responser.List\":", "\"responder.List\":");
+
+            JsonObject json = new Gson().fromJson(content, JsonObject.class);
+            json.addProperty("config.version", (Number) 2.2);
+
+            Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+            try (FileWriter writer = new FileWriter(file)) {
+                GSON.toJson(json, writer);
+                LoggerUtils.info("[ChatTools] Migrated it from v2 to v2.2!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

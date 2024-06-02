@@ -6,7 +6,7 @@ import net.apple70cents.chattools.features.general.NickHider;
 import net.apple70cents.chattools.features.general.Timestamp;
 import net.apple70cents.chattools.features.notifier.BasicNotifier;
 import net.apple70cents.chattools.features.notifier.Toast;
-import net.apple70cents.chattools.features.responser.Responser;
+import net.apple70cents.chattools.features.responder.Responder;
 import net.apple70cents.chattools.utils.MessageUtils;
 import net.apple70cents.chattools.utils.TextUtils;
 import net.minecraft.client.MinecraftClient;
@@ -59,9 +59,9 @@ public abstract class ChatHudMixin {
             // it must be done before NickHider began to work
             BubbleRenderer.addChatBubble(message);
         }
-        if ((boolean) ChatTools.CONFIG.get("responser.Enabled") && !MessageUtils.hadJustSentMessage()) {
+        if ((boolean) ChatTools.CONFIG.get("responder.Enabled") && !MessageUtils.hadJustSentMessage()) {
             // obviously, we don't respond to our own messages
-            Responser.work(message);
+            Responder.work(message);
         }
         if ((boolean) ChatTools.CONFIG.get("general.NickHider.Enabled")) {
             message = NickHider.work(message);

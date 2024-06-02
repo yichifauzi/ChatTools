@@ -76,9 +76,9 @@ Chat Tools的默认正则表达式字串 `^\d+$|^[.#%$/].*|\ball\b` 即可满足
 为不同的服务器应用不同的聊天气泡规则  
 ![Bubble Rules](<images/Bubble Rules.png>)
 
-## 聊天回应（Responser Section）
+## 聊天回应（Responder Section）
 > **注意：在服务器中使用此功能前，请先咨询他人及管理员的意见！**
-- 启用聊天回应（Enable Responser）  
+- 启用聊天回应（Enable Responder）  
 聊天回应功能允许对于特定的聊天内容自动回复特定的信息
-- 聊天回应规则列表（Responser Rules）  
+- 聊天回应规则列表（Responder Rules）  
 在不同的服务器应用不同的聊天回应规则

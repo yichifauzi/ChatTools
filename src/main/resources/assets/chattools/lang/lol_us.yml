@@ -41,7 +41,7 @@ key:
       formatter: Fancy Wordz
       chatkeybindings: Keyz for Talkz
       bubble: Bubbly Chat
-      responser: Auto-Meow
+      responder: Auto-Meow
     general:
       ChatTools:
         Enabled:
@@ -220,7 +220,7 @@ key:
         Fallback:
           .: Just In Case
           '@Tooltip': "If on, when we see a name in da message,\nwe bubble it up anyway, even if it's not fitting da rule.\nNote: Bubble words stay same, no change."
-    responser:
+    responder:
       Enabled:
         .: Auto Meow Back
         '@Tooltip': "Automagically meows back at specific stuff.\nChoosy if it should or just nap."

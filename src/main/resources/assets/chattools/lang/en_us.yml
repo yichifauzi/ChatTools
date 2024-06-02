@@ -41,7 +41,7 @@ key:
       formatter: Formatter
       chatkeybindings: Chat Keybindings
       bubble: Bubble
-      responser: Responser
+      responder: Responder
     general:
       ChatTools:
         Enabled:
@@ -291,16 +291,16 @@ key:
 
             Please note that in this situation, the message shown in the
             bubble is not going to be modified.
-    responser:
+    responder:
       Enabled:
-        .: Enable Responser
+        .: Enable Responder
         '@Tooltip': |
-          Responser allows you to response automatically to specific messages.
-          Toggles whether Responser should work.
+          Responder allows you to response automatically to specific messages.
+          Toggles whether Responder should work.
       List:
         .: 'Rules §6(Current Server Address: %s §6)§r'
         '@Tooltip': |
-          Defines the rules for Responser.
+          Defines the rules for Responder.
           The upper content has higher priority.
           It will only respond once.
         '@New': New Rule

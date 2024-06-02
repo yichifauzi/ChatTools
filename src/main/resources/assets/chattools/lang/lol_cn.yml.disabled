@@ -9,7 +9,7 @@ key:
       formatter: 喵喵排版器
       chatkeybindings: 喵键绑定
       bubble: 泡泡
-      responser: 自动喵喵机
+      responder: 自动喵喵机
     general: 
       ChatTools: 
         Enabled: 
@@ -152,7 +152,7 @@ key:
         Fallback: 
           .: 回退
           @Tooltip: 如果开启这个选项，当我们在消息中找到昵称时，\n即使消息完全不符合规则，\n也会在他头上显示泡泡喵。\n\n请注意，在这种情况下，泡泡中显示的消息内容不会被修改。
-    responser: 
+    responder:
       Enabled: 
         .: 启用自动回复
         @Tooltip: 自动回复允许你对特定消息自动回复喵。\n它决定自动回复是否应该工作喵。

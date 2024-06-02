@@ -1,5 +1,5 @@
 {
-  "config.version": 2.1,
+  "config.version": 2.2,
   "general.ChatTools.Enabled": true,
   "general.ShowWelcomeMessageEnabled": true,
   "general.Timestamp.Enabled": true,
@@ -51,8 +51,8 @@
       "fallback": false
     }
   ],
-  "responser.Enabled": false,
-  "responser.List": [
+  "responder.Enabled": false,
+  "responder.List": [
     {
       "address": "*",
       "pattern": "Repeat my words:(?\u003cword\u003e.*)",

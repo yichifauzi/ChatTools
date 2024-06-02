@@ -180,70 +180,70 @@ public class ConfigScreenUtils {
                         }
                     }
                 );
-            case "ResponserList":
-                return new NestedListListEntry<SpecialUnits.ResponserRuleUnit, MultiElementListEntry<SpecialUnits.ResponserRuleUnit>>
+            case "ResponderList":
+                return new NestedListListEntry<SpecialUnits.ResponderRuleUnit, MultiElementListEntry<SpecialUnits.ResponderRuleUnit>>
                     (SERVER_LABELED_KEY,
-                        SpecialUnits.ResponserRuleUnit.fromList((List) CONFIG.get(key)),
+                        SpecialUnits.ResponderRuleUnit.fromList((List) CONFIG.get(key)),
                         true,
                         () -> Optional.of(new net.minecraft.text.Text[]{tooltip}),
                         v -> CONFIG.set(key, v),
-                        () -> SpecialUnits.ResponserRuleUnit.fromList((List) DEFAULT_CONFIG.get(key)),
+                        () -> SpecialUnits.ResponderRuleUnit.fromList((List) DEFAULT_CONFIG.get(key)),
                         eb.getResetButtonKey(),
                         true,
-                        true, (responserRuleUnit, ignored) -> {
-                            AtomicReference<SpecialUnits.ResponserRuleUnit> responserUnitRef = new AtomicReference<>(new SpecialUnits.ResponserRuleUnit());
-                            if (responserRuleUnit == null) {
+                        true, (responderRuleUnit, ignored) -> {
+                            AtomicReference<SpecialUnits.ResponderRuleUnit> responderUnitRef = new AtomicReference<>(new SpecialUnits.ResponderRuleUnit());
+                            if (responderRuleUnit == null) {
                                 Text displayText = trans(key + ".@New");
-                                SpecialUnits.ResponserRuleUnit defaultRule = new SpecialUnits.ResponserRuleUnit();
-                                responserUnitRef.set(defaultRule);
+                                SpecialUnits.ResponderRuleUnit defaultRule = new SpecialUnits.ResponderRuleUnit();
+                                responderUnitRef.set(defaultRule);
                                 return new MultiElementListEntry<>(displayText, defaultRule, new ArrayList<AbstractConfigListEntry<?>>() {{
                                     add(eb.startStrField(trans(key + ".Address"), defaultRule.address)
                                           .setTooltip(getTooltip(key + ".Address", "String", defaultRule.address))
                                           .setDefaultValue(defaultRule.address)
-                                          .setSaveConsumer(v -> responserUnitRef.get().address = v)
+                                          .setSaveConsumer(v -> responderUnitRef.get().address = v)
                                           .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                     add(eb.startStrField(trans(key + ".Pattern"), defaultRule.pattern)
                                           .setTooltip(getTooltip(key + ".Pattern", "String", defaultRule.pattern))
                                           .setDefaultValue(defaultRule.pattern)
-                                          .setSaveConsumer(v -> responserUnitRef.get().pattern = v)
+                                          .setSaveConsumer(v -> responderUnitRef.get().pattern = v)
                                           .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER).build());
                                     add(eb.startStrField(trans(key + ".Message"), defaultRule.message)
                                           .setTooltip(getTooltip(key + ".Message", "String", defaultRule.message))
                                           .setDefaultValue(defaultRule.message)
-                                          .setSaveConsumer(v -> responserUnitRef.get().message = v).build());
+                                          .setSaveConsumer(v -> responderUnitRef.get().message = v).build());
                                     add(eb
                                             .startBooleanToggle(trans(key + ".ForceDisableFormatter"), defaultRule.forceDisableFormatter)
                                             .setTooltip(getTooltip(key + ".ForceDisableFormatter", "boolean", defaultRule.forceDisableFormatter))
                                             .setDefaultValue(defaultRule.forceDisableFormatter)
-                                            .setSaveConsumer(v -> responserUnitRef.get().forceDisableFormatter = v).build());
+                                            .setSaveConsumer(v -> responderUnitRef.get().forceDisableFormatter = v).build());
                                 }}, false);
                             } else {
-                                String colorPrefix = ("*".equals(responserRuleUnit.address) || (MinecraftClient.getInstance()
+                                String colorPrefix = ("*".equals(responderRuleUnit.address) || (MinecraftClient.getInstance()
                                                                                                                .getCurrentServerEntry() != null && Pattern
-                                        .compile(responserRuleUnit.address)
+                                        .compile(responderRuleUnit.address)
                                         .matcher(MinecraftClient.getInstance().getCurrentServerEntry().address)
                                         .matches())) ? "§a" : "§6";
-                                Text displayText = trans(key + ".@Display", colorPrefix + responserRuleUnit.address, responserRuleUnit.forceDisableFormatter ? "§a✔" : "§c✘", responserRuleUnit.pattern, responserRuleUnit.message);
-                                return new MultiElementListEntry<>(displayText, responserRuleUnit, new ArrayList<AbstractConfigListEntry<?>>() {{
-                                    add(eb.startStrField(trans(key + ".Address"), responserRuleUnit.address)
-                                          .setTooltip(getTooltip(key + ".Address", "String", new SpecialUnits.ResponserRuleUnit().address))
-                                          .setDefaultValue(new SpecialUnits.ResponserRuleUnit().address)
-                                          .setSaveConsumer(v -> responserRuleUnit.address = v)
+                                Text displayText = trans(key + ".@Display", colorPrefix + responderRuleUnit.address, responderRuleUnit.forceDisableFormatter ? "§a✔" : "§c✘", responderRuleUnit.pattern, responderRuleUnit.message);
+                                return new MultiElementListEntry<>(displayText, responderRuleUnit, new ArrayList<AbstractConfigListEntry<?>>() {{
+                                    add(eb.startStrField(trans(key + ".Address"), responderRuleUnit.address)
+                                          .setTooltip(getTooltip(key + ".Address", "String", new SpecialUnits.ResponderRuleUnit().address))
+                                          .setDefaultValue(new SpecialUnits.ResponderRuleUnit().address)
+                                          .setSaveConsumer(v -> responderRuleUnit.address = v)
                                           .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
-                                    add(eb.startStrField(trans(key + ".Pattern"), responserRuleUnit.pattern)
-                                          .setTooltip(getTooltip(key + ".Pattern", "String", new SpecialUnits.ResponserRuleUnit().pattern))
-                                          .setDefaultValue(new SpecialUnits.ResponserRuleUnit().pattern)
-                                          .setSaveConsumer(v -> responserRuleUnit.pattern = v)
+                                    add(eb.startStrField(trans(key + ".Pattern"), responderRuleUnit.pattern)
+                                          .setTooltip(getTooltip(key + ".Pattern", "String", new SpecialUnits.ResponderRuleUnit().pattern))
+                                          .setDefaultValue(new SpecialUnits.ResponderRuleUnit().pattern)
+                                          .setSaveConsumer(v -> responderRuleUnit.pattern = v)
                                           .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER).build());
-                                    add(eb.startStrField(trans(key + ".Message"), responserRuleUnit.message)
-                                          .setTooltip(getTooltip(key + ".Message", "String", new SpecialUnits.ResponserRuleUnit().message))
-                                          .setDefaultValue(new SpecialUnits.ResponserRuleUnit().message)
-                                          .setSaveConsumer(v -> responserRuleUnit.message = v).build());
+                                    add(eb.startStrField(trans(key + ".Message"), responderRuleUnit.message)
+                                          .setTooltip(getTooltip(key + ".Message", "String", new SpecialUnits.ResponderRuleUnit().message))
+                                          .setDefaultValue(new SpecialUnits.ResponderRuleUnit().message)
+                                          .setSaveConsumer(v -> responderRuleUnit.message = v).build());
                                     add(eb
-                                            .startBooleanToggle(trans(key + ".ForceDisableFormatter"), responserRuleUnit.forceDisableFormatter)
-                                            .setTooltip(getTooltip(key + ".ForceDisableFormatter", "boolean", new SpecialUnits.ResponserRuleUnit().forceDisableFormatter))
-                                            .setDefaultValue(new SpecialUnits.ResponserRuleUnit().forceDisableFormatter)
-                                            .setSaveConsumer(v -> responserRuleUnit.forceDisableFormatter = v).build());
+                                            .startBooleanToggle(trans(key + ".ForceDisableFormatter"), responderRuleUnit.forceDisableFormatter)
+                                            .setTooltip(getTooltip(key + ".ForceDisableFormatter", "boolean", new SpecialUnits.ResponderRuleUnit().forceDisableFormatter))
+                                            .setDefaultValue(new SpecialUnits.ResponderRuleUnit().forceDisableFormatter)
+                                            .setSaveConsumer(v -> responderRuleUnit.forceDisableFormatter = v).build());
                                 }}, false);
                             }
                         }

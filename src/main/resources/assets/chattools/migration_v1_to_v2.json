@@ -33,7 +33,7 @@
   "chatBubblesLifetime": "bubble.Lifetime",
   "chatBubblesYOffset": "bubble.YOffset",
   "bubbleRuleList": "bubble.List",
-  "chatResponserEnabled": "responser.Enabled",
-  "responserRuleList": "responser.List",
+  "chatResponserEnabled": "responder.Enabled",
+  "responserRuleList": "responder.List",
   "forceDisableInjector": "forceDisableFormatter"
 }

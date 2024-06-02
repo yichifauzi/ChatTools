@@ -41,7 +41,7 @@ key:
       formatter: 注入聊天
       chatkeybindings: 快捷发言
       bubble: 聊天气泡
-      responser: 自动响应
+      responder: 自动响应
     general:
       ChatTools:
         Enabled:
@@ -291,7 +291,7 @@ key:
             即使消息根本不匹配规则。
 
             请注意，在这种情况下，气泡中显示的消息将不会被修改。
-    responser:
+    responder:
       Enabled:
         .: 启用自动响应
         '@Tooltip': |
