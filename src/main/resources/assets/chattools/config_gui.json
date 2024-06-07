@@ -59,6 +59,10 @@
                     ]
                 },
                 {
+                    "type": "boolean",
+                    "key": "general.ChatHistoryNavigator.Enabled"
+                },
+                {
                     "type": "sub",
                     "key": "general.Translator",
                     "content": [

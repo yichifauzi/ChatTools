@@ -25,6 +25,9 @@ key:
         copyUnixTimestamp: 复制 Unix 时间戳
         copyTimestamp: 复制时间戳文本
         cancel: 取消
+      ChatHistoryNavigator:
+        title: 聊天搜索
+        placeholder: 输入以搜索…
       'on': 启用 Chat Tools [聊天工具箱]
       'off': 禁用 Chat Tools [聊天工具箱]
       requireRestart: 请在更改后重启 Minecraft 以应用更改
@@ -87,6 +90,10 @@ key:
             用于替换的新昵称。
             & -> 颜色代码前缀
             \& -> &
+      ChatHistoryNavigator:
+        Enabled:
+          .: 启用聊天搜索
+          '@Tooltip': 在聊天栏中按下 Ctrl + F 搜索聊天历史记录。
       Translator:
         .: 翻译器
         '@Tooltip': |

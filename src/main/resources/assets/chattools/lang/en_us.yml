@@ -17,7 +17,7 @@ key:
       translator.requireApi: Please configure the translation API first.
       translator.await: '[awaiting...]'
       copy:
-        launch: Click to open the Copy Menu. 
+        launch: Click to open the Copy Menu.
         title: Copy Menu
         copyRaw: Copy Raw
         copyWithColorCodeEscaped: Copy With Color Codes Escaped
@@ -25,6 +25,9 @@ key:
         copyUnixTimestamp: Copy Unix Timestamp
         copyTimestamp: Copy Timestamp
         cancel: Cancel
+      ChatHistoryNavigator:
+        title: Chat History Navigator
+        placeholder: Search...
       'on': Enable Chat Tools
       'off': Disable Chat Tools
       requireRestart: Restart Minecraft to apply changes!
@@ -87,6 +90,10 @@ key:
             Your new nickname:
             & -> Color Code Prefix
             \& -> &
+      ChatHistoryNavigator:
+        Enabled:
+          .: Enable Chat History Navigator
+          '@Tooltip': Use Ctrl + F to start navigating in chat!
       Translator:
         .: Translator
         '@Tooltip': |

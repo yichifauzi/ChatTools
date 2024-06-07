@@ -25,6 +25,9 @@ key:
         copyUnixTimestamp: unix time
         copyTimestamp: timezstampz
         cancel: take me back
+      ChatHistoryNavigator:
+        title: chat history searching...
+        placeholder: here we go!
       'on': Chatz Stuffz on
       'off': Now its off
       requireRestart: dont forget 2 restart Meowcraft later, yo.
@@ -78,6 +81,10 @@ key:
         Nickname:
           .: New Sneaky Name
           '@Tooltip': "Whatcha wanna be called, secret-agent style.\n& -> Colorz Thingy\n\\& -> &"
+      ChatHistoryNavigator:
+        Enabled:
+          .: chat history searching...
+          '@Tooltip': "Ctrl + F -> look 4 somethin' in chat"
       Translator:
         .: Transl8shun
         '@Tooltip': |

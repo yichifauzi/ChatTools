@@ -9,6 +9,7 @@
   "general.RestoreMessages.SplitLineEnabled": true,
   "general.NickHider.Enabled": false,
   "general.NickHider.Nickname": "\u00266You\u0026r",
+  "general.ChatHistoryNavigator.Enabled": true,
   "general.Translator.Enabled": false,
   "general.Translator.API": "",
   "general.Translator.PostInstead": false,

@@ -1,6 +1,7 @@
 package net.apple70cents.chattools.mixins;
 
 import net.apple70cents.chattools.ChatTools;
+import net.apple70cents.chattools.features.general.ChatHistoryNavigator;
 import net.apple70cents.chattools.features.general.Translator;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -22,6 +23,9 @@ public class ChatScreenMixin {
         }
         if (Translator.shouldWork()) {
             Translator.work(chatField);
+        }
+        if (ChatHistoryNavigator.shouldWork()) {
+            ChatHistoryNavigator.popupNavigatorScreen();
         }
     }
 
