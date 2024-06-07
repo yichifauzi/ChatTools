@@ -45,7 +45,7 @@ public class ChatHistoryNavigatorScreen extends Screen {
     public ChatHistoryNavigatorScreen(Text title, @Nullable ChatHistoryNavigatorScreen copyFrom) {
         super(title);
         this.hashcodeResultList = new ArrayList<>();
-        if (copyFrom != null){
+        if (copyFrom != null) {
             this.hashcodeResultList = copyFrom.hashcodeResultList;
         }
     }
@@ -122,10 +122,9 @@ public class ChatHistoryNavigatorScreen extends Screen {
         if (keyword == null || keyword.isBlank()) {
             return;
         }
-        hashcodeResultList = TextUtils.messageMap.entrySet().stream()
-                                                 .filter(entry -> TextUtils.wash(entry.getValue().message.getString())
-                                                                           .contains(keyword)).map(Map.Entry::getKey)
-                                                 .collect(Collectors.toList());
+        hashcodeResultList = TextUtils.messageMap.entrySet().stream().filter(entry -> TextUtils
+                                              .wash(entry.getValue().message.getString().toLowerCase()).contains(keyword.toLowerCase()))
+                                                 .map(Map.Entry::getKey).collect(Collectors.toList());
 
         this.chatUnitListWidget.clearAllEntries();
         for (String hashcode : hashcodeResultList) {
