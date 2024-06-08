@@ -19,6 +19,7 @@ key:
       copy:
         launch: click 2 start da menu o' copy
         title: menu o' copy
+        copyObjectData: original data
         copyRaw: copy uncooked
         copyWithColorCodeEscaped: color codes r turned into '&'
         copyWithNoColorCode: No color code

@@ -19,6 +19,7 @@ key:
       copy:
         launch: Click to open the Copy Menu.
         title: Copy Menu
+        copyObjectData: Copy Object Data
         copyRaw: Copy Raw
         copyWithColorCodeEscaped: Copy With Color Codes Escaped
         copyWithNoColorCode: Copy With No Color Code

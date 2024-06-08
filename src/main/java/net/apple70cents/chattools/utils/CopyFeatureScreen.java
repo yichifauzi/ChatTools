@@ -39,6 +39,9 @@ public class CopyFeatureScreen extends Screen {
     protected void addButtons() {
         int midH = this.height / 2;
         Keyboard kb = MinecraftClient.getInstance().keyboard;
+        addCenterButton("copyObjectData", midH - 21 * 3, (button -> {
+            kb.setClipboard(unit.message.toString());
+        }));
         addCenterButton("copyRaw", midH - 21 * 2, (button -> {
             kb.setClipboard(unit.message.getString());
         }));

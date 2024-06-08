@@ -19,6 +19,7 @@ key:
       copy:
         launch: 点击打开复制菜单。
         title: 复制菜单
+        copyObjectData: 复制对象数据
         copyRaw: 复制源文本
         copyWithColorCodeEscaped: 复制颜色代码转义后文本
         copyWithNoColorCode: 复制无颜色代码文本
