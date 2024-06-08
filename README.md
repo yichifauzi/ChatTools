@@ -20,6 +20,9 @@ Chat Tools的大部分功能支持高度个性化，请在配置页面进行配�
 - 隐藏自己昵称（Nickname Hider）  
 在自己视角里隐藏自己真实昵称  
 ![Nickname Hider](<images/Nickname Hider.png>)
+- 启用聊天搜索（Enable Chat History Navigator）  
+在聊天栏中按下 Ctrl + F 搜索聊天历史记录  
+![Chat History Navigator](<images/Chat History Navigator.png>)
 - 翻译器（Translator）  
 在聊天栏里按 Shift + Tab 开始翻译
 - 最大聊天记录数量（Max History Length）  

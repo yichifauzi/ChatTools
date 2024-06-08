@@ -20,6 +20,9 @@ Restore messages from previous sessions.
 - Nickname Hider  
 Hides your real nickname in your own view.  
 ![Nickname Hider](<images/Nickname Hider.png>)
+- Enable Chat History Navigator  
+Use Ctrl + F to start navigating in chat!  
+![Chat History Navigator](<images/Chat History Navigator.png>)
 - Translator  
 Press Shift + Tab in your chat bar to start translation.
 - Max History Length  
