@@ -46,8 +46,13 @@ public class ConfigScreenGenerator {
             GUI_VERSION = ((Number) configGuiMap.get("version")).intValue();
         }
 
+        //#if MC>=12100
+        Identifier backgroundTexture = Identifier.of("minecraft:textures/block/oak_planks.png");
+        //#else
+        //$$ Identifier backgroundTexture = new Identifier("minecraft:textures/block/oak_planks.png");
+        //#endif
         ConfigBuilder builder = ConfigBuilder.create().setTitle(trans("gui.title"))
-                                             .setDefaultBackgroundTexture(new Identifier("minecraft:textures/block/oak_planks.png"))
+                                             .setDefaultBackgroundTexture(backgroundTexture)
                                              .setTransparentBackground(true).setSavingRunnable(ChatTools.CONFIG::save);
         ConfigEntryBuilder eb = builder.entryBuilder();
         for (Object categoryInfo : (List) configGuiMap.get("content")) {

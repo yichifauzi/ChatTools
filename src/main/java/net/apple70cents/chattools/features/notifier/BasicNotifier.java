@@ -61,8 +61,10 @@ public class BasicNotifier {
             String identifier = (String) ChatTools.CONFIG.get("notifier.Sound.Type");
             int volume = ((Number) ChatTools.CONFIG.get("notifier.Sound.Volume")).intValue();
             int pitch = ((Number) ChatTools.CONFIG.get("notifier.Sound.Pitch")).intValue();
-            //#if MC>=12005
-            player.playSound(SoundEvent.of(new Identifier(identifier)), volume * 0.01F, pitch * 0.1F);
+            //#if MC>=12100
+            player.playSound(SoundEvent.of(Identifier.of(identifier)), volume * 0.01F, pitch * 0.1F);
+            //#elseif MC>=12005
+            //$$ player.playSound(SoundEvent.of(new Identifier(identifier)), volume * 0.01F, pitch * 0.1F);
             //#else
             //$$ player.playSound(
             //$$    //#if MC>=11900
