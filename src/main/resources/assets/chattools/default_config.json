@@ -31,7 +31,8 @@
   "formatter.Enabled": false,
   "formatter.List": [],
   "formatter.DisableOnMatchList": [
-    "^\\d+$|^[.#%$/].*|\\ball\\b"
+    "^(\\+|-)?\\d+(\\.\\d+)?$|^[.#%$/].*|\\ball\\b",
+    "(^(\\[|<)i(tem)?(\\]|>)$)"
   ],
   "chatkeybindings.RepeatKey": "key.keyboard.unknown",
   "chatkeybindings.RepeatKeyModifier": "NONE",
