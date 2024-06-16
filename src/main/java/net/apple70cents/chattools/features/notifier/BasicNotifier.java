@@ -87,7 +87,7 @@ public class BasicNotifier {
             if ((boolean) ChatTools.CONFIG.get("notifier.Highlight.OverwriteEnabled")) {
                 return TextUtils.of(prefix + text.getString());
             } else {
-                return ((MutableText) TextUtils.of(prefix)).append(text);
+                return (TextUtils.SPACER.copy().append(TextUtils.of(prefix))).append(text);
             }
         }
         return text;

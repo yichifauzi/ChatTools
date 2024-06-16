@@ -56,7 +56,7 @@ public abstract class DrawContextMixin {
             Text oldHoverText = hoverEvent.getValue(HoverEvent.Action.SHOW_TEXT);
             // Has Actions.SHOW_TEXT
             if (oldHoverText != null) {
-                Text newHoverText = ((MutableText) oldHoverText.copy()).append(textToAppend);
+                Text newHoverText = (TextUtils.SPACER.copy().append(oldHoverText)).append(textToAppend);
                 style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, newHoverText));
             } else {
                 HoverEvent.EntityContent entityContent = hoverEvent.getValue(HoverEvent.Action.SHOW_ENTITY);
@@ -77,7 +77,7 @@ public abstract class DrawContextMixin {
                     );
                 }
                 if (oldHoverText != null) {
-                    Text newHoverText = ((MutableText) oldHoverText).append(textToAppend);
+                    Text newHoverText = (TextUtils.SPACER.copy().append(oldHoverText)).append(textToAppend);
                     style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, newHoverText));
                 } else {
                     style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, textToAppend));

@@ -24,6 +24,7 @@ public class TextUtils {
                                                              .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://70centsapple.top/blogs/#/chat-tools-faq"))
                                                              .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, ConfigScreenUtils.getTooltip("faq", "FAQ", null)));
     public static final String PREFIX = "key.chattools.";
+    public static final Text SPACER = literal("").copy().setStyle(Style.EMPTY);
 
     public static class MessageUnit {
         public Text message;
@@ -145,11 +146,11 @@ public class TextUtils {
     }
 
     public static Text textArray2text(List<Text> texts) {
-        MutableText result = (MutableText) of("");
-        for (Text text : texts) {
-            result.append(text);
-            if (text != texts.get(texts.size()-1)) {
-                result.append(of("\n"));
+        MutableText result = (MutableText) literal("");
+        for (int i = 0; i < texts.size(); i++) {
+            result.append(texts.get(i));
+            if (i != texts.size() - 1) {
+                result.append(literal("\n"));
             }
         }
         return result;

@@ -22,7 +22,6 @@ public class Timestamp {
         Text longTimeDisplay = TextUtils.of(String.format("%4d/%d/%d %d:%02d:%02d\nUTC%s", currentTime.getYear(), currentTime
                 .getMonth()
                 .getValue(), currentTime.getDayOfMonth(), currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond(), offsetString));
-        Text spacer = TextUtils.literal("").copy().setStyle(Style.EMPTY);
         if ((boolean) ChatTools.CONFIG.get("general.Timestamp.CopyToChatBar.Enabled")) {
             String hashcode = TextUtils.putMessageMap(message, currentUnixTimestamp);
             HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, ((MutableText) longTimeDisplay)
@@ -30,11 +29,11 @@ public class Timestamp {
             ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chattools get_message " + hashcode);
             MutableText timestampText = ((MutableText) shortTimeDisplay).setStyle(Style.EMPTY.withHoverEvent(hoverEvent)
                                                                                              .withClickEvent(clickEvent));
-            return (spacer.copy().append(timestampText)).append(message);
+            return (TextUtils.SPACER.copy().append(timestampText)).append(message);
         } else {
             HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, longTimeDisplay);
             MutableText timestampText = ((MutableText) shortTimeDisplay).setStyle(Style.EMPTY.withHoverEvent(hoverEvent));
-            return (spacer.copy().append(timestampText)).append(message);
+            return (TextUtils.SPACER.copy().append(timestampText)).append(message);
         }
     }
 
