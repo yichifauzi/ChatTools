@@ -29,6 +29,17 @@ key:
       ChatHistoryNavigator:
         title: Chat History Navigator
         placeholder: Search...
+      PreviewClickEvents:
+        overall: "§6Events:"
+        insertion: "§c- §rShift + Click Insertion: %s"
+        clickEvent:
+          .: "§c- §rClick Event:"
+          openUrl: "§c - §rOpen URL: %s"
+          openFile: "§c - §rOpen File: %s"
+          runCommand: "§c - §rRun Command: %s"
+          suggestCommand: "§c - §rSuggest Command: %s"
+          changePage: "§c - §rChange Page: %s"
+          copyToClipboard: "§c - §rCopy To Clipboard: %s"
       'on': Enable Chat Tools
       'off': Disable Chat Tools
       requireRestart: Restart Minecraft to apply changes!
@@ -59,7 +70,7 @@ key:
           '@Tooltip': Toggles whether a timestamp should be inserted.
         Pattern:
           .: Pattern
-          '@Tooltip': |
+          '@Tooltip': |-
             The pattern for the timestamps.
             & -> Color Code Prefix
             \& -> &
@@ -87,7 +98,7 @@ key:
           '@Tooltip': Toggles whether your nickname should be replaced.
         Nickname:
           .: New Nickname
-          '@Tooltip': |
+          '@Tooltip': |-
             Your new nickname:
             & -> Color Code Prefix
             \& -> &
@@ -95,9 +106,13 @@ key:
         Enabled:
           .: Enable Chat History Navigator
           '@Tooltip': Use Ctrl + F to start navigating in chat!
+      PreviewClickEvents:
+        Enabled:
+          .: Enable Click Events Preview
+          '@Tooltip': Preview events of the text you're hovering.
       Translator:
         .: Translator
-        '@Tooltip': |
+        '@Tooltip': |-
           Use Shift + Tab to translate a text in chat!
           You will have to configure the translation API yourself.
         Enabled:
@@ -105,24 +120,24 @@ key:
           '@Tooltip': Toggles whether the translator is enabled.
         API:
           .: Translate API
-          '@Tooltip': |
+          '@Tooltip': |-
             Enter a URL here and replace the text to be translated with {text}.
             If there is no {text}, the text to be translated will be added to the end.
         PostInstead:
           .: Send request as POST
-          '@Tooltip': |
+          '@Tooltip': |-
             If enabled, the request will be sent as POST, otherwise GET will be used.
             Please note that in the current version, even if the request is sent as a POST,
             the request parameters are still attached to the URL string, which is a bit awkward.
       MaxHistoryLength:
         .: Max History Length
-        '@Tooltip': |
+        '@Tooltip': |-
           Changes your maximum chat history length.
           (Minecraft Default: 100)
     notifier:
       Toast:
         .: System Toast
-        '@Tooltip': |
+        '@Tooltip': |-
           Sends a toast notification when Minecraft is running background.
           Only matched messages count.
         Enabled:
@@ -130,16 +145,16 @@ key:
           '@Tooltip': Toggles whether toast notifications should be sent.
         Mode:
           .: Mode
-          '@Tooltip': |
+          '@Tooltip': |-
             §6ADDON§r: Toast by triggering add-ons. 
-                Extra files will be needed. Download them manually with §o/chattools download§r.
+                Extra files will be required. Download them manually with §o/chattools download§r.
             
-            §6POWERSHELL§r: Toast by powershell commands
+            §6POWERSHELL§r: Toast by powershell commands.
 
             §6AWT§r: Toast by using Java AWT (It usually not works. Not recommended!)
       Sound:
         .: Sound
-        '@Tooltip': |
+        '@Tooltip': |-
           Plays a sound effect.
           Only matched messages count.
         Enabled:
@@ -156,7 +171,7 @@ key:
           '@Tooltip': Changes the pitch of the sound.
       Actionbar:
         .: Actionbar
-        '@Tooltip': |
+        '@Tooltip': |-
           It shows an actionbar message.
           Only matched messages count.
         Enabled:
@@ -164,7 +179,7 @@ key:
           '@Tooltip': Toggles actionbar notifications.
       Highlight:
         .: Highlight
-        '@Tooltip': |
+        '@Tooltip': |-
           Inserts prefixes in front of the messages.
           Only matched messages count.
         Enabled:
@@ -175,7 +190,7 @@ key:
           '@Tooltip': The prefix that is going to be inserted.
         OverwriteEnabled:
           .: Enable Overwrite
-          '@Tooltip': |
+          '@Tooltip': |-
             Toggles whether the message should be overwritten. 
             The property attributes of the text will be erased and overwritten.
       IgnoreMyMessageEnabled:
@@ -183,46 +198,46 @@ key:
         '@Tooltip': Toggles whether my own messages should be picked out from being matched.
       MatchMyNameEnabled:
         .: Match My Nickname
-        '@Tooltip': |
+        '@Tooltip': |-
           Toggles whether my nickname should be matched.
           You can also do this by adding your nickname below in Allow List
       AllowList:
         .: Allow List
-        '@Tooltip': |
+        '@Tooltip': |-
           Patterns in this list will be used for matching.
           RegEx is recommended. 
       BanList:
         .: Ban List
-        '@Tooltip': |
+        '@Tooltip': |-
           Patterns in this list will be picked out from being matched.
           RegEx is recommended. 
     formatter:
       Enabled:
         .: Enable Formatter
-        '@Tooltip': |
+        '@Tooltip': |-
           Formatter allows you to format your message according to your rules.
           Toggles whether Formatter should work.
       List:
         .: 'Rules §6(Current Server Address: %s §6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           Defines the rules for Formatter.
           The upper content has higher priority.
         '@New': New Rule
         '@Display': §e[ %s§e ]§r %s
         Address:
           .: Address
-          '@Tooltip': |
+          '@Tooltip': |-
             The server address for this rule.
             RegEx is recommended.
         Formatter:
           .: Formatter
-          '@Tooltip': |
+          '@Tooltip': |-
             The pattern for formatting.
             {text} -> Original Text
             {pos} -> (X,Y,Z)
       DisableOnMatchList:
         .: Disable-on-match List
-        '@Tooltip': |
+        '@Tooltip': |-
           If any of the patterns in this list matches your text,
           we will automatically disable Formatter for that text.
           RegEx is recommened.
@@ -250,7 +265,7 @@ key:
             '@Tooltip': You'll need to activate this modifier key as well, in order to activate the macro.
           Mode:
             .: Mode
-            '@Tooltip': |
+            '@Tooltip': |-
               Let's take key 'D' with no modifier as an example:
               §6LAZY§r: F3+D -> Fail to activate
                 Ctrl+D -> Fail to activate
@@ -272,19 +287,19 @@ key:
         '@Tooltip': Y offset of the bubble.
       List:
         .: 'Rules §6(Current Server Address: %s §6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           Defines the rules for bubbles.
           The upper content has higher priority.
         '@New': New Rule
         '@Display': '§e[ %s§e ] [ Fallback: %s§e ]§r %s'
         Address:
           .: Address
-          '@Tooltip': |
+          '@Tooltip': |-
             The server address for this rule.
             RegEx is recommended.
         Pattern:
           .: Pattern
-          '@Tooltip': |
+          '@Tooltip': |-
             Catches the nickname of the sender and seperated chat of the messages.
             RegEx is recommended.
             It should include two RegEx groups:
@@ -292,7 +307,7 @@ key:
               §6<message>§r: The Seperated Message Content
         Fallback:
           .: Fallback
-          '@Tooltip': |
+          '@Tooltip': |-
             If this option is on, when a nickname is found in the message,
             a bubble will be rendered above a player's head anyway,
             even if the message does not match the rule at all.
@@ -302,12 +317,12 @@ key:
     responder:
       Enabled:
         .: Enable Responder
-        '@Tooltip': |
+        '@Tooltip': |-
           Responder allows you to response automatically to specific messages.
           Toggles whether Responder should work.
       List:
         .: 'Rules §6(Current Server Address: %s §6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           Defines the rules for Responder.
           The upper content has higher priority.
           It will only respond once.
@@ -315,18 +330,18 @@ key:
         '@Display': '§e[ %s§e ] [ Override: %s§e ]§r %s §e→§r %s'
         Address:
           .: Address
-          '@Tooltip': |
+          '@Tooltip': |-
             The server address for this rule.
             RegEx is recommended.
         Pattern:
           .: Pattern
-          '@Tooltip': |
+          '@Tooltip': |-
             The pattern for matching.
             RegEx is recommended.
             Using RegEx groups is recommended.
         Message:
           .: Response Message
-          '@Tooltip': |
+          '@Tooltip': |-
             An automatic response of a message.
             {pos} -> (X,Y,Z)
             {$GROUP} -> The Content of the matched group `$GROUP`

@@ -29,6 +29,17 @@ key:
       ChatHistoryNavigator:
         title: 聊天搜索
         placeholder: 输入以搜索…
+      PreviewClickEvents:
+        overall: §6文本组件互动信息：
+        insertion: §c- §rShift + 单击填入文字：%s
+        clickEvent:
+          .: §c- §r点击事件：
+          openUrl: §c - §r打开网页链接：%s
+          openFile: §c - §r打开文件：%s
+          runCommand: §c - §r执行指令：%s
+          suggestCommand: §c - §r填入文字：%s
+          changePage: §c - §r翻页：%s
+          copyToClipboard: §c - §r复制到剪切板：%s
       'on': 启用 Chat Tools [聊天工具箱]
       'off': 禁用 Chat Tools [聊天工具箱]
       requireRestart: 请在更改后重启 Minecraft 以应用更改
@@ -59,7 +70,7 @@ key:
           '@Tooltip': 切换是否应插入时间戳。
         Pattern:
           .: 格式
-          '@Tooltip': |
+          '@Tooltip': |-
             时间戳的格式。
             & -> 颜色代码前缀
             \& -> &
@@ -87,7 +98,7 @@ key:
           '@Tooltip': 切换是否应替换你的昵称。
         Nickname:
           .: 自定义昵称
-          '@Tooltip': |
+          '@Tooltip': |-
             用于替换的新昵称。
             & -> 颜色代码前缀
             \& -> &
@@ -95,9 +106,13 @@ key:
         Enabled:
           .: 启用聊天搜索
           '@Tooltip': 在聊天栏中按下 Ctrl + F 搜索聊天历史记录。
+      PreviewClickEvents:
+        Enabled:
+          .: 启用预览点击事件
+          '@Tooltip': 预览聊天栏中文字的点击事件。
       Translator:
         .: 翻译器
-        '@Tooltip': |
+        '@Tooltip': |-
           在聊天栏中输入一些文字，按下 Shift + Tab 进行翻译。
           需要自行配置翻译API。
         Enabled:
@@ -105,23 +120,23 @@ key:
           '@Tooltip': 切换是否启用翻译器。
         API:
           .: 翻译 API
-          '@Tooltip': |
+          '@Tooltip': |-
             在这里输入一个链接，使用{text}替换待翻译的文字。
             如果没有{text}，将会把待翻译的文字添加到尾部。
         PostInstead:
           .: 以 POST 发送请求
-          '@Tooltip': |
+          '@Tooltip': |-
             如果启用此项，将以 POST 发送请求，否则使用 GET。
             请注意在现版本即使以 POST 发送请求，实际上仍是把请求参数附在 URL 后面的，比较鸡肋。
       MaxHistoryLength:
         .: 最大历史记录长度
-        '@Tooltip': |
+        '@Tooltip': |-
           更改您的最大历史记录大小。
           （Minecraft 默认：100）
     notifier:
       Toast:
         .: 后台通知
-        '@Tooltip': |
+        '@Tooltip': |-
           当 Minecraft 在后台运行时推送 Toast 通知。
           只有匹配的消息才会计入。
         Enabled:
@@ -129,7 +144,7 @@ key:
           '@Tooltip': 切换是否推送 Toast 通知。
         Mode:
           .: 模式
-          '@Tooltip': |
+          '@Tooltip': |-
             §6ADDON§r: 通过触发额外的程序来推送 Toast 通知。 
                 需要下载额外文件，请使用 §o/chattools download§r 手动下载。
             
@@ -138,7 +153,7 @@ key:
             §6AWT§r: 使用 Java AWT 库 推送 Toast 通知（通常没用，不建议使用。）
       Sound:
         .: 声音
-        '@Tooltip': |
+        '@Tooltip': |-
           播放声音效果。
           只有匹配的消息才会计入。
         Enabled:
@@ -155,7 +170,7 @@ key:
           '@Tooltip': 更改声音的音调。
       Actionbar:
         .: 动作栏
-        '@Tooltip': |
+        '@Tooltip': |-
           显示动作栏消息。
           只有匹配的消息才会计入。
         Enabled:
@@ -163,7 +178,7 @@ key:
           '@Tooltip': 切换是否应有动作栏通知。
       Highlight:
         .: 高亮
-        '@Tooltip': |
+        '@Tooltip': |-
           在消息前插入前缀。
           只有匹配的消息才会计入。
         Enabled:
@@ -174,7 +189,7 @@ key:
           '@Tooltip': 将要插入的前缀。
         OverwriteEnabled:
           .: 覆写原聊天
-          '@Tooltip': |
+          '@Tooltip': |-
             切换是否应覆写消息。 
             原文本的属性将会被擦除并覆写。
       IgnoreMyMessageEnabled:
@@ -182,53 +197,53 @@ key:
         '@Tooltip': 切换是否应从匹配中排除我自己的消息。
       MatchMyNameEnabled:
         .: 匹配我的昵称
-        '@Tooltip': |
+        '@Tooltip': |-
           切换是否应匹配我的昵称。
           你也可以通过在下面的匹配白名单中添加你的昵称来实现。
       AllowList:
         .: 匹配白名单
-        '@Tooltip': |
+        '@Tooltip': |-
           此列表中的模式将用于匹配。
           建议使用正则表达式。
       BanList:
         .: 匹配黑名单
-        '@Tooltip': |
+        '@Tooltip': |-
           此列表中的模式将会从匹配中排除。
           建议使用正则表达式。
     formatter:
       Enabled:
         .: 启用聊天注入
-        '@Tooltip': |
+        '@Tooltip': |-
           聊天注入允许你根据自定义规则格式化消息（添加前后缀等）。
           切换是否应工作聊天注入。
       List:
         .: '规则 §6(当前服务器地址：%s§6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           定义聊天注入的规则。
           靠上的内容优先级更高。
         '@New': 新规则
         '@Display': §e[ %s§e ]§r %s
         Address:
           .: 地址
-          '@Tooltip': |
+          '@Tooltip': |-
             此规则的服务器地址。
             建议使用正则表达式。
         Formatter:
           .: 文本
-          '@Tooltip': |
+          '@Tooltip': |-
             格式化的模式串。
             {text} -> 原始文本
             {pos} -> (X,Y,Z)
       DisableOnMatchList:
         .: 自动禁用聊天注入列表
-        '@Tooltip': |
+        '@Tooltip': |-
           如果此列表中的任何模式串与你的文本匹配，
           我们将自动禁用该文本的聊天注入。
           建议使用正则表达式。
     chatkeybindings:
       RepeatKey:
         .: 一键复读
-        '@Tooltip': |
+        '@Tooltip': |-
           §o人 类 的 本 质 是 __ __ __§r
           按下此键，将重复你的最后一条消息。
       RepeatKeyModifier:
@@ -251,7 +266,7 @@ key:
             '@Tooltip': 你还需要同时激活此修饰键，以激活宏。
           Mode:
             .: 模式
-            '@Tooltip': |
+            '@Tooltip': |-
               以修饰符为无、宏按键为“D”键做例子：
               §6LAZY§r: F3+D -> 无法激活
                 Ctrl+D -> 无法激活
@@ -273,19 +288,19 @@ key:
         '@Tooltip': 气泡的Y轴偏移量。
       List:
         .: '规则 §6(当前服务器地址：%s§6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           定义气泡的规则。
           靠上的内容优先级更高。
         '@New': 新规则
         '@Display': '§e[ %s§e ] [回退：%s§e]§r %s'
         Address:
           .: 地址
-          '@Tooltip': |
+          '@Tooltip': |-
             此规则的服务器地址。
             建议使用正则表达式。
         Pattern:
           .: 模式
-          '@Tooltip': |
+          '@Tooltip': |-
             捕获消息中的发送者昵称和分离的聊天内容。
             建议使用正则表达式。
             应包括两个正则表达式组：
@@ -293,7 +308,7 @@ key:
               §6<message>§r: 分离的消息内容
         Fallback:
           .: 回退
-          '@Tooltip': |
+          '@Tooltip': |-
             如果开启此选项，当我们在消息中发现昵称时，
             我们将无论如何都会在其头上渲染一个气泡，
             即使消息根本不匹配规则。
@@ -302,12 +317,12 @@ key:
     responder:
       Enabled:
         .: 启用自动响应
-        '@Tooltip': |
+        '@Tooltip': |-
           自动响应特定消息。
           切换是否启用自动响应。
       List:
         .: '规则 §6(当前服务器地址：%s§6)§r'
-        '@Tooltip': |
+        '@Tooltip': |-
           定义响应器的规则。
           靠上的内容优先级更高。
           响应至多一次。
@@ -315,18 +330,18 @@ key:
         '@Display': '§e[ %s§e ] [关闭注入：%s§e]§r %s §e→§r %s'
         Address:
           .: 地址
-          '@Tooltip': |
+          '@Tooltip': |-
             此规则的服务器地址。
             建议使用正则表达式。
         Pattern:
           .: 模式
-          '@Tooltip': |
+          '@Tooltip': |-
             匹配的模式。
             建议使用正则表达式。
             建议使用正则表达式的分组功能。
         Message:
           .: 响应消息
-          '@Tooltip': |
+          '@Tooltip': |-
             这将是你的自动响应消息。
             {pos} -> (X,Y,Z)
             {$GROUP} -> 匹配组`$GROUP`的内容

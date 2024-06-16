@@ -29,6 +29,17 @@ key:
       ChatHistoryNavigator:
         title: chat history searching...
         placeholder: here we go!
+      PreviewClickEvents:
+        overall: "§6Events:"
+        insertion: "§c- §rShift + Click Insertion: %s"
+        clickEvent:
+          .: "§c- §rClick Event:"
+          openUrl: "§c - §rTo URL: %s"
+          openFile: "§c - §rTo File: %s"
+          runCommand: "§c - §rSay: %s"
+          suggestCommand: "§c - §rSuggest meow: %s"
+          changePage: "§c - §rTo Page: %s"
+          copyToClipboard: "§c - §rCopy 2 meowboard: %s"
       'on': Chatz Stuffz on
       'off': Now its off
       requireRestart: dont forget 2 restart Meowcraft later, yo.
@@ -86,9 +97,13 @@ key:
         Enabled:
           .: chat history searching...
           '@Tooltip': "Ctrl + F -> look 4 somethin' in chat"
+      PreviewClickEvents:
+        Enabled:
+          .: see click events
+          '@Tooltip': see what will happen if you click on the text
       Translator:
         .: Transl8shun
-        '@Tooltip': |
+        '@Tooltip': |-
           Moew somethin' in the chat bar and press Shift + Tab to translate it!
           yall have 2 change the API yourself.
         Enabled:
@@ -96,12 +111,12 @@ key:
           '@Tooltip': Toggles whether the transl8or is at work.
         API:
           .: Transl8 API
-          '@Tooltip': |
+          '@Tooltip': |-
             Enter a link here and replace the moews to be transl8d with {text}.
             If there is no {text}, the meows to be transl8d will be added to the end.
         PostInstead:
           .: POST or GET?
-          '@Tooltip': |
+          '@Tooltip': |-
             ok -> POST, no ok -> GET.
             Note: nowadays, even if the request is sent as a POST,
             the request parameters r still attached 2 da URL string.

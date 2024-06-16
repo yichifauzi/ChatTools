@@ -7,6 +7,7 @@ import net.apple70cents.chattools.ChatTools;
 import net.minecraft.text.*;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -106,11 +107,11 @@ public class TextUtils {
     }
 
     public static Text trans(String str, Object... args) {
-        return of(transWithPrefix(str, PREFIX, args).getString().strip());
+        return transWithPrefix(str, PREFIX, args);
     }
 
     public static Text trans(String str) {
-        return of(transWithPrefix(str, PREFIX).getString().strip());
+        return transWithPrefix(str, PREFIX);
     }
 
     public static Text of(String str) {
@@ -141,6 +142,17 @@ public class TextUtils {
 
     public static String backEscapeColorCodes(String str) {
         return str.replace('§', '&');
+    }
+
+    public static Text textArray2text(List<Text> texts) {
+        MutableText result = (MutableText) of("");
+        for (Text text : texts) {
+            result.append(text);
+            if (text != texts.get(texts.size()-1)) {
+                result.append(of("\n"));
+            }
+        }
+        return result;
     }
 
     /**

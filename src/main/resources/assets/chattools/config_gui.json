@@ -1,5 +1,5 @@
 {
-    "version": 2.2,
+    "version": 2.201,
     "content": [
         {
             "key": "category.general",
@@ -61,6 +61,10 @@
                 {
                     "type": "boolean",
                     "key": "general.ChatHistoryNavigator.Enabled"
+                },
+                {
+                    "type": "boolean",
+                    "key": "general.PreviewClickEvents.Enabled"
                 },
                 {
                     "type": "sub",

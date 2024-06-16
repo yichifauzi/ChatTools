@@ -5,10 +5,11 @@
   "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
   "mixins": [
     "ChatHudMixin",
+    "ChatScreenMixin",
     "ClientPlayNetworkHandlerMixin",
+    "DrawContextMixin",
     "EntityRendererMixin",
-    "InGameHudMixin",
-    "ChatScreenMixin"
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
