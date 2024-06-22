@@ -17,6 +17,11 @@ public class ChatFilter {
         if (!(boolean) ChatTools.CONFIG.get("filter.Enabled")) {
             return false;
         }
+        // only respond once
+        if (TextUtils.wash(text.getString())
+                     .contains(TextUtils.wash(TextUtils.trans("texts.filterPlaceholder").getString()))) {
+            return false;
+        }
         List<String> filterList = (List<String>) ChatTools.CONFIG.get("filter.List");
         String washed = TextUtils.wash(text.getString());
         for (String pattern : filterList) {
