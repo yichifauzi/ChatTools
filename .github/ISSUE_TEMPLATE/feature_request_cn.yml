@@ -1,0 +1,25 @@
+name: 功能请求（中文）
+description: 为此项目提出一个想法
+labels: [ ]
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 动机
+      description: 你为什么想要这个功能？你想解决什么问题？建议的功能如何帮助解决这个问题？
+      placeholder: 告诉我们你想要什么！
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+      description: 尽可能详细地描述你想要的功能
+      placeholder: 我希望能够移动聊天栏的位置，改变聊天栏的大小。
+    validations:
+      required: true
+  - type: textarea
+    id: other-information
+    attributes:
+      label: 其他信息
+      description: 该功能请求的其他有用信息。如果没有，请留空。
