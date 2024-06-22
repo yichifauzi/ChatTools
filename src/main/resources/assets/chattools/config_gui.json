@@ -173,11 +173,13 @@
         },
         {
           "type": "StringList",
-          "key": "notifier.AllowList"
+          "key": "notifier.AllowList",
+          "errorSupplier": "RegExNormal"
         },
         {
           "type": "StringList",
-          "key": "notifier.BanList"
+          "key": "notifier.BanList",
+          "errorSupplier": "RegExNormal"
         }
       ]
     },
@@ -194,7 +196,8 @@
         },
         {
           "type": "StringList",
-          "key": "formatter.DisableOnMatchList"
+          "key": "formatter.DisableOnMatchList",
+          "errorSupplier": "RegExNormal"
         }
       ]
     },
@@ -270,7 +273,8 @@
         },
         {
           "type": "StringList",
-          "key": "filter.List"
+          "key": "filter.List",
+          "errorSupplier": "RegExNormal"
         }
       ]
     }

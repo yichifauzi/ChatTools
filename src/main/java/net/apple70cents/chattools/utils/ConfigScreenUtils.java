@@ -5,6 +5,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.MultiElementListEntry;
 import me.shedaniel.clothconfig2.gui.entries.NestedListListEntry;
 import me.shedaniel.clothconfig2.gui.entries.TooltipListEntry;
+import me.shedaniel.clothconfig2.impl.builders.StringListBuilder;
 import net.apple70cents.chattools.config.SpecialUnits;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
@@ -83,8 +84,9 @@ public class ConfigScreenUtils {
         }
     }
 
-    // the `args` are only for `min` and `max` value for int sliders (recently)
-    public static TooltipListEntry getEntryBuilder(ConfigEntryBuilder eb, String type, String key, int... args) {
+    public static TooltipListEntry getEntryBuilder(ConfigEntryBuilder eb, String type, String key, String errorSupplier, int... args) {
+        // the `args` are only for `min` and `max` value for int sliders (recently)
+        // `errorSuppliers` will only apply to `StringList`s
         Text tooltip = getTooltip(key, type);
         // display current server (if it can be used)
         final Text SERVER_LABELED_KEY = trans(key, "§f" + ((MinecraftClient.getInstance()
@@ -117,9 +119,24 @@ public class ConfigScreenUtils {
                         //#endif
                                 (keybind -> CONFIG.set(key, keybind.getTranslationKey())).build();
             case "StringList":
-                return eb.startStrList(trans(key), (List<String>) CONFIG.get(key))
-                         .setDefaultValue((List<String>) DEFAULT_CONFIG.get(key)).setTooltip(tooltip)
-                         .setSaveConsumer(v -> CONFIG.set(key, v)).build();
+                StringListBuilder builder = eb.startStrList(trans(key), (List<String>) CONFIG.get(key))
+                            .setDefaultValue((List<String>) DEFAULT_CONFIG.get(key)).setTooltip(tooltip)
+                            .setSaveConsumer(v -> CONFIG.set(key, v));
+                switch (errorSupplier) {
+                    case "RegExNormal":
+                        builder.setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_FOR_LIST);
+                        break;
+                    case "RegExRequireGroups":
+                        builder.setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS_FOR_LIST);
+                        break;
+                    case "RegExAllowStar":
+                        builder.setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR_FOR_LIST);
+                        break;
+                    case "null":
+                    default:
+                        break;
+                }
+                return builder.build();
             case "FAQ":
                 return eb.startTextDescription(((MutableText) trans("faq")).setStyle(TextUtils.WEBSITE_URL_STYLE))
                          .build();
@@ -143,12 +160,12 @@ public class ConfigScreenUtils {
                                       .setTooltip(getTooltip(key + ".Address", "String", defaultRule.address))
                                       .setDefaultValue(defaultRule.address)
                                       .setSaveConsumer(v -> bubbleRuleUnitRef.get().address = v)
-                                      .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                      .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                 add(eb.startStrField(trans(key + ".Pattern"), defaultRule.pattern)
                                       .setTooltip(getTooltip(key + ".Pattern", "String", defaultRule.pattern))
                                       .setDefaultValue(defaultRule.pattern)
                                       .setSaveConsumer(v -> bubbleRuleUnitRef.get().pattern = v)
-                                      .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS).build());
+                                      .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS).build());
                                 add(eb.startBooleanToggle(trans(key + ".Fallback"), defaultRule.fallback)
                                       .setTooltip(getTooltip(key + ".Fallback", "boolean", defaultRule.fallback))
                                       .setDefaultValue(defaultRule.fallback)
@@ -166,12 +183,12 @@ public class ConfigScreenUtils {
                                       .setTooltip(getTooltip(key + ".Address", "String", new SpecialUnits.BubbleRuleUnit().address))
                                       .setDefaultValue(new SpecialUnits.BubbleRuleUnit().address)
                                       .setSaveConsumer(v -> bubbleRuleUnit.address = v)
-                                      .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                      .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                 add(eb.startStrField(trans(key + ".Pattern"), bubbleRuleUnit.pattern)
                                       .setTooltip(getTooltip(key + ".Pattern", "String", new SpecialUnits.BubbleRuleUnit().pattern))
                                       .setDefaultValue(new SpecialUnits.BubbleRuleUnit().pattern)
                                       .setSaveConsumer(v -> bubbleRuleUnit.pattern = v)
-                                      .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS).build());
+                                      .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS).build());
                                 add(eb.startBooleanToggle(trans(key + ".Fallback"), bubbleRuleUnit.fallback)
                                       .setTooltip(getTooltip(key + ".Fallback", "boolean", new SpecialUnits.BubbleRuleUnit().fallback))
                                       .setDefaultValue(new SpecialUnits.BubbleRuleUnit().fallback)
@@ -201,12 +218,12 @@ public class ConfigScreenUtils {
                                           .setTooltip(getTooltip(key + ".Address", "String", defaultRule.address))
                                           .setDefaultValue(defaultRule.address)
                                           .setSaveConsumer(v -> responderUnitRef.get().address = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                     add(eb.startStrField(trans(key + ".Pattern"), defaultRule.pattern)
                                           .setTooltip(getTooltip(key + ".Pattern", "String", defaultRule.pattern))
                                           .setDefaultValue(defaultRule.pattern)
                                           .setSaveConsumer(v -> responderUnitRef.get().pattern = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER).build());
                                     add(eb.startStrField(trans(key + ".Message"), defaultRule.message)
                                           .setTooltip(getTooltip(key + ".Message", "String", defaultRule.message))
                                           .setDefaultValue(defaultRule.message)
@@ -229,12 +246,12 @@ public class ConfigScreenUtils {
                                           .setTooltip(getTooltip(key + ".Address", "String", new SpecialUnits.ResponderRuleUnit().address))
                                           .setDefaultValue(new SpecialUnits.ResponderRuleUnit().address)
                                           .setSaveConsumer(v -> responderRuleUnit.address = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                     add(eb.startStrField(trans(key + ".Pattern"), responderRuleUnit.pattern)
                                           .setTooltip(getTooltip(key + ".Pattern", "String", new SpecialUnits.ResponderRuleUnit().pattern))
                                           .setDefaultValue(new SpecialUnits.ResponderRuleUnit().pattern)
                                           .setSaveConsumer(v -> responderRuleUnit.pattern = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER).build());
                                     add(eb.startStrField(trans(key + ".Message"), responderRuleUnit.message)
                                           .setTooltip(getTooltip(key + ".Message", "String", new SpecialUnits.ResponderRuleUnit().message))
                                           .setDefaultValue(new SpecialUnits.ResponderRuleUnit().message)
@@ -364,7 +381,7 @@ public class ConfigScreenUtils {
                                           .setTooltip(getTooltip(key + ".Address", "String", defaultFormatterRule.address))
                                           .setDefaultValue(defaultFormatterRule.address)
                                           .setSaveConsumer(v -> formatterUnitRef.get().address = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                     add(eb.startStrField(trans(key + ".Formatter"), defaultFormatterRule.formatter)
                                           .setTooltip(getTooltip(key + ".Formatter", "String", defaultFormatterRule.formatter))
                                           .setDefaultValue(defaultFormatterRule.formatter)
@@ -382,7 +399,7 @@ public class ConfigScreenUtils {
                                           .setTooltip(getTooltip(key + ".Address", "String", new SpecialUnits.FormatterUnit().address))
                                           .setDefaultValue(new SpecialUnits.FormatterUnit().address)
                                           .setSaveConsumer(v -> formatterUnit.address = v)
-                                          .setErrorSupplier(REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
+                                          .setErrorSupplier(ErrorSuppliers.REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR).build());
                                     add(eb.startStrField(trans(key + ".Formatter"), formatterUnit.formatter)
                                           .setTooltip(getTooltip(key + ".Formatter", "String", new SpecialUnits.FormatterUnit().formatter))
                                           .setDefaultValue(new SpecialUnits.FormatterUnit().formatter)
@@ -407,37 +424,78 @@ public class ConfigScreenUtils {
         }
     }
 
-    public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER = (v) -> {
-        try {
-            Pattern.compile(v);
-            return Optional.empty();
-        } catch (PatternSyntaxException e) {
-            return Optional.of(TextUtils.of(e.getDescription()));
-        }
-    };
-
-    public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR = (v) -> {
-        if ("*".equals(v)) {
-            return Optional.empty();
-        }
-        try {
-            Pattern.compile(v);
-            return Optional.empty();
-        } catch (PatternSyntaxException e) {
-            return Optional.of(TextUtils.of(e.getDescription()));
-        }
-    };
-
-    public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS = (v) -> {
-        try {
-            Pattern.compile(v);
-            if (v.contains("<name>") && v.contains("<message>")) {
+    public static class ErrorSuppliers {
+        public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER = (v) -> {
+            try {
+                Pattern.compile(v);
                 return Optional.empty();
-            } else {
-                return Optional.of(TextUtils.literal("Should include both <name> and <message> groups."));
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
             }
-        } catch (PatternSyntaxException e) {
-            return Optional.of(TextUtils.of(e.getDescription()));
-        }
-    };
+        };
+        public static final Function<List<String>, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_FOR_LIST = (v) -> {
+            try {
+                for (String s : v) {
+                    Pattern.compile(s);
+                }
+                return Optional.empty();
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
+            }
+        };
+
+        public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR = (v) -> {
+            if ("*".equals(v)) {
+                return Optional.empty();
+            }
+            try {
+                Pattern.compile(v);
+                return Optional.empty();
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
+            }
+        };
+        public static final Function<List<String>, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_ALLOW_STAR_FOR_LIST = (v) -> {
+
+            try {
+                for (String s : v) {
+                    if ("*".equals(v)) {
+                        continue;
+                    }
+                    Pattern.compile(s);
+                }
+                return Optional.empty();
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
+            }
+        };
+
+        public static final Function<String, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS = (v) -> {
+            try {
+                Pattern.compile(v);
+                if (v.contains("<name>") && v.contains("<message>")) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(TextUtils.literal("Should include both <name> and <message> groups."));
+                }
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
+            }
+        };
+        public static final Function<List<String>, Optional<Text>> REGEX_COMPILE_ERROR_SUPPLIER_REQUIRE_GROUPS_FOR_LIST = (v) -> {
+            try {
+                for (String s : v) {
+                    Pattern.compile(s);
+                    if (s.contains("<name>") && s.contains("<message>")) {
+                        continue;
+                    } else {
+                        return Optional.of(TextUtils.literal("Should include both <name> and <message> groups."));
+                    }
+                }
+                return Optional.empty();
+            } catch (PatternSyntaxException e) {
+                return Optional.of(TextUtils.of(e.getDescription()));
+            }
+        };
+    }
 }

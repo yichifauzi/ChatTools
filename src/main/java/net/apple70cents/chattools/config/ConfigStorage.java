@@ -70,6 +70,7 @@ public class ConfigStorage {
         ((List<String>) get("notifier.AllowList")).removeIf(String::isBlank);
         ((List<String>) get("notifier.BanList")).removeIf(String::isBlank);
         ((List<String>) get("formatter.DisableOnMatchList")).removeIf(String::isBlank);
+        ((List<String>) get("filter.List")).removeIf(String::isBlank);
         LoggerUtils.info("[ChatTools] Saving configs.");
         try (FileWriter writer = new FileWriter(FILE)) {
             GSON.toJson(configMap, writer);
