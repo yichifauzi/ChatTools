@@ -66,6 +66,6 @@
   "filter.Enabled": false,
   "filter.FilteredPlaceholderEnabled": true,
   "filter.List": [
-    "[Change me]"
+    "<CHANGE ME>"
   ]
 }
