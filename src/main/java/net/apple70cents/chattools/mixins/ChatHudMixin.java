@@ -2,22 +2,26 @@ package net.apple70cents.chattools.mixins;
 
 import net.apple70cents.chattools.ChatTools;
 import net.apple70cents.chattools.features.bubble.BubbleRenderer;
+import net.apple70cents.chattools.features.filter.ChatFilter;
 import net.apple70cents.chattools.features.general.NickHider;
 import net.apple70cents.chattools.features.general.Timestamp;
 import net.apple70cents.chattools.features.notifier.BasicNotifier;
 import net.apple70cents.chattools.features.notifier.Toast;
 import net.apple70cents.chattools.features.responder.Responder;
+import net.apple70cents.chattools.utils.LoggerUtils;
 import net.apple70cents.chattools.utils.MessageUtils;
 import net.apple70cents.chattools.utils.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+//#if MC>=11900
+import net.minecraft.client.gui.hud.MessageIndicator;
+import net.minecraft.network.message.MessageSignatureData;
+//#endif
 
 @Mixin(ChatHud.class)
 public abstract class ChatHudMixin {
@@ -35,6 +39,32 @@ public abstract class ChatHudMixin {
             return ((Number) ChatTools.CONFIG.get("general.MaxHistoryLength")).intValue();
         } else {
             return 100;
+        }
+    }
+
+    //#if MC>=12005
+    @Inject(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At(value = "HEAD"), cancellable = true)
+    //#elseif MC>=11900
+    //$$ @Inject(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V", at = @At(value = "HEAD"), cancellable = true)
+    //#else
+    //$$ @Inject(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", at = @At(value = "HEAD"), cancellable = true)
+    //#endif
+    public void onReceivingMessages(
+            //#if MC>=12005
+            Text message, MessageSignatureData signatureData, MessageIndicator indicator
+            //#elseif MC>=11900
+            //$$ Text message, MessageSignatureData signature, int ticks, MessageIndicator indicator, boolean refresh
+            //#else
+            //$$ Text message, int messageId, int timestamp, boolean refresh
+            //#endif
+            , CallbackInfo ci) {
+        if (!(boolean) ChatTools.CONFIG.get("general.ChatTools.Enabled")) {
+            return;
+        }
+        LoggerUtils.info("[ChatTools] Filtered message: " + message.getString());
+        if (ChatFilter.shouldWork(message)) {
+            ChatFilter.sendPlaceholderIfActive();
+            ci.cancel();
         }
     }
 

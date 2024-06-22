@@ -4,6 +4,9 @@ key:
   chattools:
     texts:
       RestoreMessagesSplitLine: '§7==== 储存的聊天记录 ====§r'
+      filterPlaceholder:
+        .: '§7==== [已过滤] ====§r'
+        '@Tooltip': '此消息被 Chat Tools 聊天过滤功能过滤'
       welcomeMessage: 第一次使用 Chat Tools ？点击这里查看常见问题解答！
       toast.title: 来自 Minecraft 的关注信息
       actionbar.title: §a§l聊天栏中有您关注的信息
@@ -57,6 +60,7 @@ key:
       chatkeybindings: 快捷发言
       bubble: 聊天气泡
       responder: 自动响应
+      filter: 聊天过滤
     general:
       ChatTools:
         Enabled:
@@ -350,3 +354,15 @@ key:
         ForceDisableFormatter:
           .: 禁用聊天注入
           '@Tooltip': 切换是否在响应时临时关闭聊天注入的尝试。
+    filter:
+      Enabled:
+        .: 启用聊天过滤
+        '@Tooltip': 根据规则过滤聊天信息
+      FilteredPlaceholderEnabled:
+        .: 启用已过滤占位符
+        '@Tooltip': 消息被过滤时发送一条占位消息来占位
+      List:
+        .: 过滤规则
+        '@Tooltip': |-
+          如果此列表中的任何模式串与接收到的消息匹配，此消息将过滤。
+          建议使用正则表达式。

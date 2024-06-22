@@ -4,6 +4,9 @@ key:
   chattools:
     texts:
       RestoreMessagesSplitLine: '§7==== Old Memory ====§r'
+      filterPlaceholder:
+        .: '§7==== [filtered] ====§r'
+        '@Tooltip': 'it had been filtered by Chatz Stuffz filter.'
       welcomeMessage: New to Chatz Stuffz? Smash me!
       toast.title: 'Meowing from Meowcraft:'
       actionbar.title: §a§lwuts in your chat?
@@ -57,6 +60,7 @@ key:
       chatkeybindings: Keyz for Talkz
       bubble: Bubbly Chat
       responder: Auto-Meow
+      filter: Meow-meow Filter
     general:
       ChatTools:
         Enabled:
@@ -266,3 +270,16 @@ key:
         ForceDisableFormatter:
           .: Turn Off Fancy Talk (Override)
           '@Tooltip': Choosy to not fancy talk when meowing back.
+    filter:
+      Enabled:
+        .: let it disappear!
+        '@Tooltip': filter bad meows based on MY rule!
+      FilteredPlaceholderEnabled:
+        .: placeholder it!
+        '@Tooltip': replaces da filtered message with a placeholder.
+      List:
+        .: filter rules
+        '@Tooltip': |-
+          defines whether the incoming meow is GOOD or BAD,
+          the BAD meow will be filtered.
+          RegEx makes it cooler...

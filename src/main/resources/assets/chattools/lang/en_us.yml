@@ -4,6 +4,9 @@ key:
   chattools:
     texts:
       RestoreMessagesSplitLine: '§7==== Restored Messages ====§r'
+      filterPlaceholder:
+        .: '§7==== [Filtered] ====§r'
+        '@Tooltip': 'This message was filtered by Chat Tools Filter.'
       welcomeMessage: New to Chat Tools? Check out FAQs here!
       toast.title: 'From Minecraft:'
       actionbar.title: §a§lReceived messages!
@@ -57,6 +60,7 @@ key:
       chatkeybindings: Chat Keybindings
       bubble: Bubble
       responder: Responder
+      filter: Chat Filter
     general:
       ChatTools:
         Enabled:
@@ -242,7 +246,7 @@ key:
         '@Tooltip': |-
           If any of the patterns in this list matches your text,
           we will automatically disable Formatter for that text.
-          RegEx is recommened.
+          RegEx is recommended.
     chatkeybindings:
       RepeatKey:
         .: Repeat Key
@@ -302,11 +306,11 @@ key:
         Pattern:
           .: Pattern
           '@Tooltip': |-
-            Catches the nickname of the sender and seperated chat of the messages.
+            Catches the nickname of the sender and separated chat of the messages.
             RegEx is recommended.
             It should include two RegEx groups:
               §6<name>§r: The Nickname
-              §6<message>§r: The Seperated Message Content
+              §6<message>§r: The Separated Message Content
         Fallback:
           .: Fallback
           '@Tooltip': |-
@@ -350,3 +354,16 @@ key:
         ForceDisableFormatter:
           .: Disable Formatter (Override)
           '@Tooltip': Toggles whether Formatter should be off when responding.
+    filter:
+      Enabled:
+        .: Enable Chat Filter
+        '@Tooltip': Filter chat messages based on specific rules.
+      FilteredPlaceholderEnabled:
+        .: Enable Placeholder
+        '@Tooltip': Replaces the filtered message with a placeholder.
+      List:
+        .: Rules
+        '@Tooltip': |-
+          If any of the patterns in this list matches an incoming message,
+          the message will be filtered.
+          RegEx is recommended.

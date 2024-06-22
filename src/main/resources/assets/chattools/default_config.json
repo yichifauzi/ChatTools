@@ -62,5 +62,10 @@
       "message": "You said {word}.",
       "forceDisableFormatter": false
     }
+  ],
+  "filter.Enabled": false,
+  "filter.FilteredPlaceholderEnabled": true,
+  "filter.List": [
+    "[Change me]"
   ]
 }
