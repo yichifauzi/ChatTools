@@ -108,8 +108,10 @@ key:
           '@Tooltip': Use Ctrl + F to start navigating in chat!
       PreviewClickEvents:
         Enabled:
-          .: Enable Click Events Preview
-          '@Tooltip': Preview events of the text you're hovering.
+          .: §6Enable Click Events Preview [Experimental]
+          '@Tooltip': |-
+            Preview events of the text you're hovering.
+            §6Still under development, so it is imperfect.
       Translator:
         .: Translator
         '@Tooltip': |-

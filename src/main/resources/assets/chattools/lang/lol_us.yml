@@ -99,20 +99,22 @@ key:
           '@Tooltip': "Ctrl + F -> look 4 somethin' in chat"
       PreviewClickEvents:
         Enabled:
-          .: see click events
-          '@Tooltip': see what will happen if you click on the text
+          .: §6peek click events [Experimental]
+          '@Tooltip': |-
+            see what will happen if you click on the text
+            §6Still under devel0pment, so it is n0t perfect.
       Translator:
         .: Transl8shun
         '@Tooltip': |-
-          Moew somethin' in the chat bar and press Shift + Tab to translate it!
-          yall have 2 change the API yourself.
+          Meow somethin' in the chat bar and press Shift + Tab to translate it!
+          u'll have 2 change da API urself.
         Enabled:
           .: Start transl8ing!
           '@Tooltip': Toggles whether the transl8or is at work.
         API:
           .: Transl8 API
           '@Tooltip': |-
-            Enter a link here and replace the moews to be transl8d with {text}.
+            Enter a link here and replace the meows to be transl8d with {text}.
             If there is no {text}, the meows to be transl8d will be added to the end.
         PostInstead:
           .: POST or GET?
