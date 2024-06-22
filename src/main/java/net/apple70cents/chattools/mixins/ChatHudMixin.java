@@ -61,8 +61,8 @@ public abstract class ChatHudMixin {
         if (!(boolean) ChatTools.CONFIG.get("general.ChatTools.Enabled")) {
             return;
         }
-        LoggerUtils.info("[ChatTools] Filtered message: " + message.getString());
         if (ChatFilter.shouldWork(message)) {
+            LoggerUtils.info("[ChatTools] Filtered message: " + message.getString());
             ChatFilter.sendPlaceholderIfActive();
             ci.cancel();
         }
