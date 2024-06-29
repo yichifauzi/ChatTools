@@ -1,5 +1,6 @@
 package net.apple70cents.chattools.utils;
 
+import net.apple70cents.chattools.ChatTools;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
@@ -7,7 +8,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +25,10 @@ public class DownloadUtils {
     private static final String OS = System.getProperty("os.name");
     // whether it is the first scan, or we have no successful scans.
     private static boolean shouldCheckMD5OnJudgingReadiness = true;
+
+    public static boolean shouldCheckIfFullyReady() {
+        return (boolean) ChatTools.CONFIG.get("notifier.Toast.Enabled") && "ADDON".equals((String) ChatTools.CONFIG.get("notifier.Toast.Mode"));
+    }
 
     public static boolean checkIfFullyReady() {
         Map<String, String> fileNames = getFileNamesMap();
