@@ -61,7 +61,7 @@ public abstract class ChatHudMixin {
         if (!(boolean) ChatTools.CONFIG.get("general.ChatTools.Enabled")) {
             return;
         }
-        if (ChatFilter.shouldWork(message)) {
+        if (ChatFilter.shouldFilter(message)) {
             LoggerUtils.info("[ChatTools] Filtered message: " + message.getString());
             ChatFilter.sendPlaceholderIfActive();
             ci.cancel();
@@ -85,6 +85,10 @@ public abstract class ChatHudMixin {
             return;
         }
         Text message = args.get(MESSAGE_IDX);
+        // ignores this message if Chat Filter is to work
+        if (ChatFilter.shouldFilter(message)) {
+            return;
+        }
         if ((boolean) ChatTools.CONFIG.get("bubble.Enabled")) {
             // it must be done before NickHider began to work
             BubbleRenderer.addChatBubble(message);

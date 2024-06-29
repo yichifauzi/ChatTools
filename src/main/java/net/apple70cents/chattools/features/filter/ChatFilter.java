@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class ChatFilter {
 
-    public static boolean shouldWork(Text text) {
+    public static boolean shouldFilter(Text text) {
         if (!(boolean) ChatTools.CONFIG.get("filter.Enabled")) {
             return false;
         }
