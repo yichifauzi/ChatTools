@@ -42,9 +42,9 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
-          with:
-            name: Artifacts
-            path: gathered-artifacts
+        with:
+          name: Artifacts
+          path: gathered-artifacts
 
       - name: Get variables
         run: |
