@@ -22,7 +22,7 @@ jobs:
             echo "skip_build=false" >> $GITHUB_OUTPUT
           fi
 
-  build:
+  build-and-summary:
     needs: commit-checker
     if: needs.commit-checker.outputs.skip_build == 'false'
     runs-on: ubuntu-latest
@@ -31,13 +31,6 @@ jobs:
 
       - name: Build
         uses: ./.github/actions/build_artifacts/
-
-  summary:
-    runs-on: ubuntu-22.04
-    needs:
-      - build
-    steps:
-      - uses: actions/checkout@v4
 
       - name: Generate summary
         uses: ./.github/actions/summary/

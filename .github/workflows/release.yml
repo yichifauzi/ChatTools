@@ -6,7 +6,7 @@ on:
       - "v*"
 
 jobs:
-  build:
+  build-and-summary:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,7 @@ jobs:
 
   release:
     needs:
-      - build
+      - build-and-summary
     runs-on: ubuntu-latest
     strategy:
       matrix:
