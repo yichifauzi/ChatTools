@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build
-        uses: ./.github/actions/build
+        uses: ./.github/actions/build_artifacts/
 
   summary:
     runs-on: ubuntu-22.04
