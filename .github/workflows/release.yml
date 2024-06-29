@@ -53,7 +53,7 @@ jobs:
 
       - name: Get variables
         run: |
-          raw_file_paths=$(ls gathered-artifacts/*)
+          raw_file_paths=$(ls ./gathered-artifacts/*)
           # adds line breaks
           file_paths=${file_paths//$'\n'/,}
           echo "file_paths=${file_paths}" >> $GITHUB_ENV
@@ -63,7 +63,7 @@ jobs:
           tag_name=${raw_tag_name#v}
           echo "tag_name=${tag_name}" >> $GITHUB_ENV
 
-          changelog=$(cat changelog.md)
+          changelog=$(cat changelog.md | awk '{printf "%s\\n", $0}')
           echo "changelog=${changelog}" >> $GITHUB_ENV
 
           # log prints
