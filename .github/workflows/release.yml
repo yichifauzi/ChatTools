@@ -6,7 +6,7 @@ on:
       - "v*"
 
 jobs:
-  build-and-summary:
+  build-and-summary-and-github-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,9 +17,45 @@ jobs:
       - name: Generate summary
         uses: ./.github/actions/summary/
 
-  release:
+      - name: Get variables
+        run: |
+          raw_file_paths=$(ls ./gathered-artifacts/*)
+          # adds line breaks
+          file_paths=${raw_file_paths//$'\n'/,}
+          echo "file_paths=${file_paths}" >> $GITHUB_ENV
+
+          raw_tag_name=${GITHUB_REF#refs/tags/}
+          # removes the 'v' prefix
+          tag_name=${raw_tag_name#v}
+          echo "tag_name=${tag_name}" >> $GITHUB_ENV
+
+          changelog=$(cat changelog.md)
+          echo "changelog<<EOF" >> $GITHUB_ENV
+          echo "${changelog}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
+          # log prints
+          echo "file_paths: $file_paths"
+          echo "tag_name: $tag_name"
+          echo "changelog: $changelog"
+
+      # https://github.com/marketplace/actions/gh-release
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          repository: 70CentsApple/ChatTools
+          tag_name: "v${{ env.tag_name }}"
+          name: "v${{ env.tag_name }}"
+          body: ${{ env.changelog }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: ${{ env.file_paths }}
+
+  modrinth-release:
     needs:
-      - build-and-summary
+      - build-and-summary-and-github-release
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,26 +90,6 @@ jobs:
           name: Artifacts
           path: gathered-artifacts
 
-      - name: Get variables
-        run: |
-          raw_file_paths=$(ls ./gathered-artifacts/*)
-          # adds line breaks
-          file_paths=${file_paths//$'\n'/,}
-          echo "file_paths=${file_paths}" >> $GITHUB_ENV
-
-          raw_tag_name=${GITHUB_REF#refs/tags/}
-          # removes the 'v' prefix
-          tag_name=${raw_tag_name#v}
-          echo "tag_name=${tag_name}" >> $GITHUB_ENV
-
-          changelog=$(cat changelog.md | awk '{printf "%s\\n", $0}')
-          echo "changelog=${changelog}" >> $GITHUB_ENV
-
-          # log prints
-          echo "file_paths: $file_paths"
-          echo "tag_name: $tag_name"
-          echo "changelog: $changelog"
-
       - name: Resolve file path
         run: |
           file_path=$(ls gathered-artifacts/*${{ matrix.game_version }}*.jar)
@@ -96,17 +112,3 @@ jobs:
           loaders: "fabric"
           featured: false
           project_id: "pbnlOdwp"
-
-      # https://github.com/marketplace/actions/gh-release
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository: 70CentsApple/ChatTools
-          tag_name: ${{ env.tag_name }}
-          release_name: "v${{ env.tag_name }}"
-          body: ${{ env.changelog }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-          files: ${{ env.file_paths }}
