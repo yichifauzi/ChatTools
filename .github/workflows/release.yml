@@ -96,6 +96,23 @@ jobs:
           echo "file_path=${file_path}" >> $GITHUB_ENV
           echo "file_path for this version is: $file_path"
 
+      - name: Get variables
+        run: |
+          raw_tag_name=${GITHUB_REF#refs/tags/}
+          # removes the 'v' prefix
+          tag_name=${raw_tag_name#v}
+          echo "tag_name=${tag_name}" >> $GITHUB_ENV
+
+          response=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/70CentsApple/ChatTools/releases/latest")
+          changelog=$(echo "${response}" | jq -r '.body')
+          echo "changelog<<EOF" >> $GITHUB_ENV
+          echo "${changelog}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          # log prints
+          echo "tag_name: $tag_name"
+          echo "changelog: $changelog"
+
       # https://github.com/marketplace/actions/upload-to-modrinth
       - name: Upload to Modrinth
         uses: RubixDev/modrinth-upload@v1
